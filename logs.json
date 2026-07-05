@@ -1,0 +1,83 @@
+{
+  "requests": [
+    {
+      "url": "https://www.pichau.com.br/produtos?busca=pc",
+      "method": "GET",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      }
+    },
+    {
+      "url": "https://pichau-media.s3.amazonaws.com/manutencao/bg.jpg",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://www.pichau.com.br/",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0"
+      }
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+      "method": "GET",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0"
+      }
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/scripts/jsd/80a697ecdece/main.js?",
+      "method": "GET",
+      "headers": {
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+        "referer": ""
+      }
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/jsd/oneshot/80a697ecdece/0.8795288866618672:1783199129:eL7kS6dZ_fHlnr-BtSO5Pns1QOJBGJgafzY_W2EmO0c/a16138e8cd962bf5",
+      "method": "POST",
+      "headers": {
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+        "content-type": "text/plain;charset=UTF-8",
+        "sec-ch-ua-mobile": "?0"
+      }
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://www.pichau.com.br/produtos?busca=pc",
+      "status": 403,
+      "headers": {},
+      "jsonPreview": ""
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+      "status": 302,
+      "headers": {},
+      "jsonPreview": ""
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/scripts/jsd/80a697ecdece/main.js?",
+      "status": 200,
+      "headers": {},
+      "jsonPreview": ""
+    },
+    {
+      "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/jsd/oneshot/80a697ecdece/0.8795288866618672:1783199129:eL7kS6dZ_fHlnr-BtSO5Pns1QOJBGJgafzY_W2EmO0c/a16138e8cd962bf5",
+      "status": 200,
+      "headers": {},
+      "jsonPreview": ""
+    }
+  ]
+}

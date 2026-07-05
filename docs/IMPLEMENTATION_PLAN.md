@@ -1,22 +1,23 @@
-# Implementation Plan
+# Updated Implementation Plan
 
-Priority:
+Phase 1
+- Defeat or satisfy Cloudflare challenge using legitimate browser automation.
+- Determine whether persistent sessions can be reused.
 
-1. Discover JSON endpoints via Playwright request interception.
-2. Parse embedded __NEXT_DATA__ or JSON-LD.
-3. Implement DOM parser only if necessary.
+Phase 2
+- Discover network endpoints.
+- Inspect embedded JSON (__NEXT_DATA__, JSON-LD).
+- Identify GraphQL or REST APIs.
+- Document pagination.
 
-Performance:
+Phase 3
+- Choose extraction strategy:
 
-- Reuse browser.
-- Reuse browser context.
-- Abort images/fonts/media.
-- Optional short-lived cache.
+1. Network interception (preferred)
+2. Embedded JSON
+3. DOM extraction (fallback)
 
-Errors:
+Phase 4
+- Implement ProductProvider.
 
-NavigationError
-BlockedError
-TimeoutError
-ExtractionError
-ParseError
+No provider code should be written until Phase 1 succeeds.

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "cf_clearance",
+    "value": "cZ3XdjHFKwfboPnodIWyDD3y58t_PnT7adNtPGGQQzo-1783209060-1.2.1.1-_sZ9vraQDKbWMJyQj.v4q01d9JH_.DX.qAlGA.XUcyWVJIsWmItu3fU0kpIv54NoDu.zZ8bdvvnPiNTPfoxM9wkKLr1FdKzKU4rzwMXRHoukeWJb5Ba9ExDHupyWRM0m16Sc8lz3FbkVvfHzIUAbjLkG44edFMff2fvDzy6z4UZub.aH_RzLkA.GvEdVACgzOUTIJJN0nnwYAIZ6yn.WSF22NwN5CkBCbGqySYcLYlr3pLWVdHveuY_.T7ZRsbWT1ctKCUf0Wg0yo73sIn0388cYD8i5lbpy8PnYt3oDArXaCudRGhAZXERAq.yL6mhACzoRb.Q2MAXftr2eoHncqw",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1814745060.609048,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None",
+    "partitionKey": "https://pichau.com.br",
+    "_crHasCrossSiteAncestor": false
+  },
+  {
+    "name": "NID",
+    "value": "532=X5hrHGG2Xc1vLYfXoqdRgDu9FgunKYpi4lhaxN-KPTDjUJhP4EJeGoqIl3Ja7KJCmDj0CPJHBtl8ED2bOa2za3AOicbi8UIJsAIVVZ0TbXo_wVn2tzlSiPXTexhuFFuDqShcINeGNwUny4Xvx7gIgkg1DJ48H353i8lJKUSE--6gnds0xicfyzbucRmieuRjL-vA",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1799020261.111088,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  }
+]

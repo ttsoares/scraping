@@ -8,3 +8,14 @@ Success:
 
 - provider.search("ssd 1tb sata") returns normalized products.
 - Provider architecture allows future retailers with minimal changes.
+
+When a conclusion is based on incomplete evidence, distinguish between:
+
+Observed:
+    directly verified by experiment
+
+Inferred:
+    likely but unverified
+
+Unknown:
+    requires another experiment

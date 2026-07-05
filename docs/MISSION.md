@@ -2,10 +2,16 @@
 
 Repository: https://github.com/ttsoares/scraping
 
-Goal: Build a reusable web-scraping framework whose first concrete implementation is a ProductProvider for www.pichau.com.br.
+Develop a reusable scraping framework whose first provider targets Pichau.
 
-The framework should remain simple. Generalization is allowed only when it does not complicate the Pichau implementation.
+Loop 2 objective is NOT to implement ProductProvider.
 
-Development methodology: Specification Driven Development (SDD).
+Loop 2 objective is to reliably reach the real Pichau application behind Cloudflare.
 
-OpenHands may install any dependencies required.
+Generalize only when it does not complicate the Pichau solution.
+
+The repository is an engineering notebook.
+
+Knowledge gained from unsuccessful experiments is as valuable as successful implementations.
+
+Every loop must leave the repository in a better documented state than it found it.

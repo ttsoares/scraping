@@ -1,0 +1,74 @@
+[
+  {
+    "name": "_gcl_au",
+    "value": "1.1.1966393792.1783210143",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1790986142,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "NID",
+    "value": "532=Blyogss_Ay7cgaQFX4eDuVYzYHjsSUvWHGmfwe2Uw3JljhRnjWLx7DR3CqasBpcUjVkfkEnwE-2buB8NY_9VqVPKWCSfux3YmhauKwGy0_Kv9RcLOlPEdrEt8ajlQ8XCQRSDUUVMF81YuP_GczcwNiEIWD0ZXW-Xn1qomkhWJ_muvGE4H8nX1deK_3ULiHdMsD2X2g",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1799021342.573168,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "cf_clearance",
+    "value": "Ox._HqlyrCqnjBzZdwToiQ.QB6L6AcsLqUZ.yse9RCI-1783210142-1.2.1.1-rsBiOs0DM3yDWJ9kuJCo1ucRwEWTvc7D51pIg1R2MXTt_IDSgL9O9zKLg0eCvPL_x9r9swBynon6yz_7Yy5AKjYA4iOjP_mX3tKQM2SPIqwQyy1v3Ais9t4qm17ikw346swoFHqbaC0_6iNe9fb83Dcq0ZZHzkZxEbz9enkBZZv0A7sVnmJFpo9T9mJ9u8bVqSMH_Va1hcdOdHCFJuvxKnnR2JRReQsGexEvbN5UIojD.k1JOMBlyv10puIln_cFNyXwuCXGluxtWihW.mftb3zKOkq3DiameqdbS4U39kbBYSODYLt.5fiwg853mlDe482R5YTh4RaAK2MD7PrSSg",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1814746142.639091,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None",
+    "partitionKey": "https://pichau.com.br",
+    "_crHasCrossSiteAncestor": false
+  },
+  {
+    "name": "_ga",
+    "value": "GA1.1.947446547.1783210143",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1817770143.087296,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_fbp",
+    "value": "fb.2.1783210143262.451178148267808230.AQYAAQIB",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1790986146,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__cf_bm",
+    "value": "3bhOMvCbClhLOSURdTQ3Qa_IJzo0WdgxbPsFWqJ8Vtc-1783210144.0112972-1.0.1.1-wAN0ffARECxQvnphR9KZQZD9GA1jdfi92_l._fRKWpRCQ9UsCM9BeAdh2r4cVwx20Uj5Ep3gC04AKxDovymSlTU9K1gPiaKF3OjtAF9PT3329VkxyFk58BVMEJOjlz0a",
+    "domain": ".freshchat.com",
+    "path": "/",
+    "expires": 1783211944.036851,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "_ga_TX844LTGQL",
+    "value": "GS2.1.s1783210143$o1$g1$t1783210151$j52$l0$h1650564064$dVbUHTCGepxJeXNhZmNeVkIY-7LYGHPWMkQ",
+    "domain": ".pichau.com.br",
+    "path": "/",
+    "expires": 1817770151.643317,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  }
+]

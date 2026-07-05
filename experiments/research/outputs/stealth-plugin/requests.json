@@ -1,0 +1,1655 @@
+[
+  {
+    "url": "https://www.pichau.com.br/produtos?busca=pc",
+    "method": "GET",
+    "resourceType": "document",
+    "headers": {
+      "accept-language": "en-US,en;q=0.9",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/media/1e41be92c43b3255-s.p.woff2",
+    "method": "GET",
+    "resourceType": "font",
+    "headers": {
+      "origin": "https://www.pichau.com.br",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/css/c5344c66d277ba5a.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/webpack-3fa37eb1483a5ad3.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1255-97a5a4828c3a37a1.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/main-app-f3336e172256d2ab.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1548-be6f47e59531de8b.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/7758-0f70b5a95859406b.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1871-627fa57c423c6cf3.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/7122-ad284916c53c32fa.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/app/%5B...slug%5D/error-4b48cd91f1108d19.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/6294-c3c8ef2836e7c64a.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/3424-4e65083b6ae5c515.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/9583-88f89c0ab99f7d87.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1087-6682a852bcf26cb5.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/5001-95ef575b612fb366.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/9803-b873dda902e747e3.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/9562-c243f6ccec5cccbb.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/196-2cc08ffbcdddf49b.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/450-10cabb516dedcdbd.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/4282-aeaab1f5817059ae.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1111-c846d87d569f4f7c.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/310-27031c09a4d5ad30.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/8548-bd162721a9cfb113.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/5239-ab8f3b3f0baeb7a5.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/7599-401c7d8c359abc40.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/623-9d0d426db69e8678.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/3315-f573e8b4044d2449.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/2025-be0d9e4d21dfe3b3.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/5909-86ebaac354b41bd4.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/652-6b33587f085979c1.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1340-2c62f569e1b33eda.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1901-f486200f43374453.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/3144-51d89dd084e5e4b2.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/2378-00ee1c49b1d2c8cd.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/513-d75a8451cd63d5a3.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/app/layout-2de62150e7a5c017.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/app/error-b5f510efa54c0287.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/8816-a6a54fc07da481f7.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1954-56d8db859635da53.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/7046-7a26ab9fee992640.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/app/not-found-5735439e3e51747f.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/scripts/jsd/80a697ecdece/main.js?",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "accept-language": "en-US,en;q=0.9",
+      "referer": ""
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/cdn-cgi/challenge-platform/h/b/jsd/oneshot/80a697ecdece/0.013489027315000235:1783206320:nytIMsDy_VXINyoEv-TnMLtotKC39snqYiPt4AkFRmY/a162090f6cd646cf",
+    "method": "POST",
+    "resourceType": "xhr",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "content-type": "text/plain;charset=UTF-8",
+      "sec-ch-ua-mobile": "?0",
+      "accept-language": "en-US,en;q=0.9"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/logo-pichau-2021.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://newimgebit-a.akamaihd.net/ebitBR/selo/img_6261.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/shopping/customerreviews/badge?usegapi=1&merchant_id=106916823&position=INLINE&origin=https%3A%2F%2Fwww.pichau.com.br&gsrc=3p&jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en_GB.hUa95Tm1f_E.O%2Fam%3DwQE%2Fd%3D1%2Fct%3Dzgms%2Frs%3DAGLTcCM4gYjo6C2g6GVCVb19crwZGVeTtw%2Fm%3D__features__",
+    "method": "GET",
+    "resourceType": "document",
+    "headers": {
+      "accept-language": "en-US,en;q=0.9",
+      "referer": "https://www.pichau.com.br/",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    }
+  },
+  {
+    "url": "https://cdn.siteblindado.com/aw.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/api/request/highlights",
+    "method": "GET",
+    "resourceType": "fetch",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/api/request/new-products",
+    "method": "GET",
+    "resourceType": "fetch",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://o4504135070187520.ingest.us.sentry.io/api/4508421533663232/envelope/?sentry_version=7&sentry_key=8ce46c6c794b618282718e7aabfe6f05&sentry_client=sentry.javascript.browser%2F9.1.0",
+    "method": "POST",
+    "resourceType": "fetch",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "content-type": "text/plain;charset=UTF-8",
+      "sec-ch-ua-mobile": "?0",
+      "accept-language": "en-US,en;q=0.9"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/1456-46e1d0523240f954.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://static.pichau.com.br/_next/static/chunks/6101.9212174ac8025790.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/logo-pichau-2021-dark.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/_next/image?url=%2Ferror404.png&w=640&q=75",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/scs/shopping-verified-reviews-static/_/js/k=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.en_US.QCU9JXh98oU.2018.O/am=AAAAAGw/d=1/excm=_b,_tp,badgeview/ed=1/dg=0/wt=2/ujg=1/rs=AC8lLkTlTNa3XwSFq2tZwZi4ye_QSp9bKw/dti=1/m=_b,_tp",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-2M8CLPGL2R",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.gstatic.com/verifiedreviews/gray_stars_large.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.gstatic.com/verifiedreviews/orange_stars_large.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.gstatic.com/verifiedreviews/en/gcr_logo_stacked.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/c/pch-eng-acai-zero-un255.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/c/7/c700-kgnn-s004.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/c/x/cx-k5v2-rgb-cpt-black-r-us2.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/3/0/306-7zpua19-ce02_1.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/f/l/flabd516g7200hc34a012.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/znc-itsb-bg013.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/k/5/k552-m7.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-mgn-bk54555.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/g/pg-srpgr-rgb017.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/4/4/4444410404-8.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/c/pch-kit68-gr015551.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/g/a/gabinete-gamer-msi-pano-130r-mlg-edition-001.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/c/pch-cph-bk0051250204.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/4/4/4444410402.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/e/pes-rkt18-vnb52554227.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/e/pes-rkt18-nct415520007.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/znc-znmt40-bl011550004.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/aw_rbslider/slides/Pichau_Empresas_-_1450x140.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/_next/image?url=%2Fimages%2Fvisa.png&w=128&q=75",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.pichau.com.br/_next/image?url=%2Fimages%2Fmastercard.png&w=128&q=75",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/produtos?busca=pc",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/scs/shopping-verified-reviews-static/_/js/k=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.en_US.QCU9JXh98oU.2018.O/ck=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.iz3P1sMuQcU.L.B1.O/am=AAAAAGw/d=1/exm=_b,_tp/excm=_b,_tp,badgeview/ed=1/wt=2/ujg=1/rs=AC8lLkQ-MjVjpUk6t6ajRNLbJJ1twKm8YA/ee=EmZ2Bf:zr1jrb;JsbNhc:Xd8iUd;K5nYTd:ZDZcre;LBgRLc:XVMNvd;Me32dd:MEeYgc;NJ1rfe:yGfSdd;NPKaK:PVlQOd;Pjplud:EEDORb;QGR0gd:Mlhmy;SNUn3:ZwDk9d;ScI3Yc:e7Hzgb;Uvc8o:VDovNc;YIZmRd:A1yn5d;a56pNe:JEfCwb;cEt90b:ws9Tlc;dIoSBb:SpsfSb;dowIGb:ebZ3mb;eBAeSb:zbML3c;iFQyKf:vfuNJf;lOO0Vd:OTA3Ae;oGtAuc:sOXFj;qQEoOc:KUM7Z;qafBPd:yDVVkb;qddgKe:xQtZb;wR5FRb:siKnQd;yxTchf:KUM7Z/dti=1/m=vhDjqd",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://seal.app.convisoappsec.com/seals/domain/www.pichau.com.br",
+    "method": "GET",
+    "resourceType": "fetch",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://apis.google.com/js/api.js",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/g/pg-sgewh-rgb-v02.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/g/pg-aq360x-wh01v20.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-ghm3-wh01.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/x/5/x5-white.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/zno-elgs-gy1122331544.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-slk-bl01.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-cv700b-bk-2f15455.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-vdx-rgb01255410024524_1.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/r/mrc-orc2-rbw013.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/znc-znmt100-bl0256545.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-crt-rgb013.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/g/v/gv-r9070xtgaming-16gd7.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/1/0/100-1000001084wof.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/t/l/tl-m10-vision-bk.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/r/o/rog-strix-b550-f-gaming-wifi-ii.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/x/1/x11se-black.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/k/i/kit3-flitet45-659631232121.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/k/i/kit5-flitest64-65951v26221.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/k/i/kit10-fliteg80-6597812632221.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/g/pg-cels04-te_2_.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/znc-znmt1060-bl01.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/s/o/sosu-xl01554.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/t/l/tl-phantom-evobk1.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/zno-tms180-bl011555.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/t/g/tgt-brr-bk015.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/e/pes-rkt18-nb215226_1.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/c/pc-completo-legion-sgpu-scadeira-pichau-004.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/c/a/ca-9011202.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/n/p/np754xgj-kg6br.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/p/g/pg-g1200-bk014.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/u/m/umqx0aa307.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/b/x/bx8071514700f1520031.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/z/n/zno-znnbo110-bk01-v212515128.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/x/6/x68-he-black-contours.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/m/c/mcr-cv700x-bk.png",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://media.pichau.com.br/media/catalog/product/cache/ef72d3c27864510e5d4c0ce69bade259/k/g/kg96414.jpg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/VerifiedReviewsBadgeUi/cspreport/fine-allowlist",
+    "method": "POST",
+    "resourceType": "other",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "content-type": "application/csp-report",
+      "sec-ch-ua-mobile": "?0",
+      "accept-language": "en-US,en;q=0.9"
+    }
+  },
+  {
+    "url": "https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_GB.hUa95Tm1f_E.O/m=gapi_iframes,gapi_iframes_style_common/rt=j/sv=1/d=1/ed=1/am=wQE/rs=AGLTcCM4gYjo6C2g6GVCVb19crwZGVeTtw/cb=gapi.loaded_0?le=scs,fedcm_migration_mod",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/scs/shopping-verified-reviews-static/_/js/k=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.en_US.QCU9JXh98oU.2018.O/ck=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.iz3P1sMuQcU.L.B1.O/am=AAAAAGw/d=1/exm=_b,_tp,vhDjqd/excm=_b,_tp,badgeview/ed=1/wt=2/ujg=1/rs=AC8lLkQ-MjVjpUk6t6ajRNLbJJ1twKm8YA/ee=EmZ2Bf:zr1jrb;JsbNhc:Xd8iUd;K5nYTd:ZDZcre;LBgRLc:XVMNvd;Me32dd:MEeYgc;NJ1rfe:yGfSdd;NPKaK:PVlQOd;Pjplud:EEDORb;QGR0gd:Mlhmy;SNUn3:ZwDk9d;ScI3Yc:e7Hzgb;Uvc8o:VDovNc;YIZmRd:A1yn5d;a56pNe:JEfCwb;cEt90b:ws9Tlc;dIoSBb:SpsfSb;dowIGb:ebZ3mb;eBAeSb:zbML3c;iFQyKf:vfuNJf;lOO0Vd:OTA3Ae;oGtAuc:sOXFj;qQEoOc:KUM7Z;qafBPd:yDVVkb;qddgKe:xQtZb;wR5FRb:siKnQd;yxTchf:KUM7Z/dti=1/m=Wt6vjf,hhhU8,FCpbqb,WhJNk",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/scs/shopping-verified-reviews-static/_/js/k=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.en_US.QCU9JXh98oU.2018.O/ck=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.iz3P1sMuQcU.L.B1.O/am=AAAAAGw/d=1/exm=FCpbqb,WhJNk,Wt6vjf,_b,_tp,hhhU8,vhDjqd/excm=_b,_tp,badgeview/ed=1/wt=2/ujg=1/rs=AC8lLkQ-MjVjpUk6t6ajRNLbJJ1twKm8YA/ee=EmZ2Bf:zr1jrb;JsbNhc:Xd8iUd;K5nYTd:ZDZcre;LBgRLc:XVMNvd;Me32dd:MEeYgc;NJ1rfe:yGfSdd;NPKaK:PVlQOd;Pjplud:EEDORb;QGR0gd:Mlhmy;SNUn3:ZwDk9d;ScI3Yc:e7Hzgb;Uvc8o:VDovNc;YIZmRd:A1yn5d;a56pNe:JEfCwb;cEt90b:ws9Tlc;dIoSBb:SpsfSb;dowIGb:ebZ3mb;eBAeSb:zbML3c;iFQyKf:vfuNJf;lOO0Vd:OTA3Ae;oGtAuc:sOXFj;qQEoOc:KUM7Z;qafBPd:yDVVkb;qddgKe:xQtZb;wR5FRb:siKnQd;yxTchf:KUM7Z/dti=1/m=lwddkf,EFQ78c",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://seal.app.convisoappsec.com/seals/domain/www.pichau.com.br/seal.svg",
+    "method": "GET",
+    "resourceType": "image",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.pichau.com.br/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  },
+  {
+    "url": "https://www.google.com/_/scs/shopping-verified-reviews-static/_/js/k=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.en_US.QCU9JXh98oU.2018.O/ck=boq-shopping-verified-reviews.VerifiedReviewsBadgeUi.iz3P1sMuQcU.L.B1.O/am=AAAAAGw/d=1/exm=EFQ78c,FCpbqb,WhJNk,Wt6vjf,_b,_tp,hhhU8,lwddkf,vhDjqd/excm=_b,_tp,badgeview/ed=1/wt=2/ujg=1/rs=AC8lLkQ-MjVjpUk6t6ajRNLbJJ1twKm8YA/ee=EmZ2Bf:zr1jrb;JsbNhc:Xd8iUd;K5nYTd:ZDZcre;LBgRLc:XVMNvd;Me32dd:MEeYgc;NJ1rfe:yGfSdd;NPKaK:PVlQOd;Pjplud:EEDORb;QGR0gd:Mlhmy;SNUn3:ZwDk9d;ScI3Yc:e7Hzgb;Uvc8o:VDovNc;YIZmRd:A1yn5d;a56pNe:JEfCwb;cEt90b:ws9Tlc;dIoSBb:SpsfSb;dowIGb:ebZ3mb;eBAeSb:zbML3c;iFQyKf:vfuNJf;lOO0Vd:OTA3Ae;oGtAuc:sOXFj;qQEoOc:KUM7Z;qafBPd:yDVVkb;qddgKe:xQtZb;wR5FRb:siKnQd;yxTchf:KUM7Z/dti=1/m=p3hmRc,LvGhrf,RqjULd",
+    "method": "GET",
+    "resourceType": "script",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://www.google.com/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+      "sec-ch-ua": "\"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \";Not A Brand\";v=\"99\"",
+      "accept-language": "en-US,en;q=0.9",
+      "sec-ch-ua-mobile": "?0"
+    }
+  }
+]

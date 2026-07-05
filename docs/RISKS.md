@@ -1,12 +1,16 @@
 # Risks
 
-- Site structure changes.
-- Anti-bot measures.
-- Pagination differences.
-- Dynamic rendering.
+Highest Risk
 
-Mitigation:
+Cloudflare blocks standard Playwright before the application loads.
 
-Prefer network data over DOM.
-Isolate extraction strategies.
-Keep parser independent.
+Mitigations
+
+- Persistent browser profile
+- Real Chrome
+- Browser fingerprint reduction
+- Stealth plugins maintained by the community
+- Human-like navigation
+- Cookie reuse
+
+Avoid brittle custom anti-detection code unless required.

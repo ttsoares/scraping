@@ -1,10 +1,31 @@
 {
+  "name": "scraping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttsoares/scraping.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ttsoares/scraping/issues"
+  },
+  "homepage": "https://github.com/ttsoares/scraping#readme",
   "dependencies": {
-    "dotenv": "^17.4.2"
+    "playwright": "^1.61.1"
   },
   "devDependencies": {
-    "@types/node": "^26.1.0",
-    "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }

@@ -1,0 +1,204 @@
+{
+  "cookies": [
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1966393792.1783210143",
+      "domain": ".pichau.com.br",
+      "path": "/",
+      "expires": 1790986142,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "NID",
+      "value": "532=Blyogss_Ay7cgaQFX4eDuVYzYHjsSUvWHGmfwe2Uw3JljhRnjWLx7DR3CqasBpcUjVkfkEnwE-2buB8NY_9VqVPKWCSfux3YmhauKwGy0_Kv9RcLOlPEdrEt8ajlQ8XCQRSDUUVMF81YuP_GczcwNiEIWD0ZXW-Xn1qomkhWJ_muvGE4H8nX1deK_3ULiHdMsD2X2g",
+      "domain": ".google.com",
+      "path": "/",
+      "expires": 1799021342.573168,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "Ox._HqlyrCqnjBzZdwToiQ.QB6L6AcsLqUZ.yse9RCI-1783210142-1.2.1.1-rsBiOs0DM3yDWJ9kuJCo1ucRwEWTvc7D51pIg1R2MXTt_IDSgL9O9zKLg0eCvPL_x9r9swBynon6yz_7Yy5AKjYA4iOjP_mX3tKQM2SPIqwQyy1v3Ais9t4qm17ikw346swoFHqbaC0_6iNe9fb83Dcq0ZZHzkZxEbz9enkBZZv0A7sVnmJFpo9T9mJ9u8bVqSMH_Va1hcdOdHCFJuvxKnnR2JRReQsGexEvbN5UIojD.k1JOMBlyv10puIln_cFNyXwuCXGluxtWihW.mftb3zKOkq3DiameqdbS4U39kbBYSODYLt.5fiwg853mlDe482R5YTh4RaAK2MD7PrSSg",
+      "domain": ".pichau.com.br",
+      "path": "/",
+      "expires": 1814746142.639091,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://pichau.com.br",
+      "_crHasCrossSiteAncestor": false
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.947446547.1783210143",
+      "domain": ".pichau.com.br",
+      "path": "/",
+      "expires": 1817770143.087296,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.2.1783210143262.451178148267808230.AQYAAQIB",
+      "domain": ".pichau.com.br",
+      "path": "/",
+      "expires": 1790986146,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "3bhOMvCbClhLOSURdTQ3Qa_IJzo0WdgxbPsFWqJ8Vtc-1783210144.0112972-1.0.1.1-wAN0ffARECxQvnphR9KZQZD9GA1jdfi92_l._fRKWpRCQ9UsCM9BeAdh2r4cVwx20Uj5Ep3gC04AKxDovymSlTU9K1gPiaKF3OjtAF9PT3329VkxyFk58BVMEJOjlz0a",
+      "domain": ".freshchat.com",
+      "path": "/",
+      "expires": 1783211944.036851,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_TX844LTGQL",
+      "value": "GS2.1.s1783210143$o1$g1$t1783210151$j52$l0$h1650564064$dVbUHTCGepxJeXNhZmNeVkIY-7LYGHPWMkQ",
+      "domain": ".pichau.com.br",
+      "path": "/",
+      "expires": 1817770151.643317,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.pichau.com.br",
+      "localStorage": [
+        {
+          "name": "ins-userDateV",
+          "value": "{\"data\":[1783210143],\"_expires\":1814746143000}"
+        },
+        {
+          "name": "ins-wp-active-tab",
+          "value": "{\"data\":\"0.3r8u0ouvlgc\",\"_expires\":1783296549000}"
+        },
+        {
+          "name": "ins-user-segments",
+          "value": "{\"data\":{\"3\":5,\"4\":8,\"5\":9,\"21\":39,\"165\":327,\"460\":924,\"655\":1342,\"818\":1669,\"828\":1695,\"829\":1697,\"830\":1700,\"831\":1704,\"987\":2020,\"988\":2022,\"1057\":2160,\"1689\":3426,\"2746\":5548,\"2749\":5556,\"2911\":5898,\"4107\":8300,\"4375\":8843,\"4499\":9090,\"4524\":9140,\"4747\":9588,\"4748\":9590,\"4752\":9598,\"4798\":9690,\"4811\":9716,\"4815\":9724,\"4957\":10008,\"4992\":10078,\"4994\":10082,\"6210\":12515,\"6212\":12519,\"6213\":12521,\"6215\":12525,\"6217\":12529,\"6218\":12531,\"6220\":12535,\"6222\":12539,\"6223\":12541,\"6225\":12545,\"6227\":12549,\"6228\":12551,\"6231\":12557,\"6234\":12563,\"6235\":12565,\"6240\":12575,\"6244\":12583,\"6245\":12585,\"6246\":12587,\"6248\":12591,\"6249\":12593,\"6251\":12597,\"6252\":12599,\"6254\":12603,\"6256\":12607,\"6257\":12609,\"6259\":12613,\"6262\":12619,\"6263\":12621,\"6266\":12627,\"6267\":12629,\"6270\":12635,\"6275\":12645,\"6277\":12649},\"_expires\":1783213749000}"
+        },
+        {
+          "name": "ins-lead-spuid",
+          "value": "{\"data\":\"1783210143160e8d086269e.4909c22b\",\"_expires\":1783210159000}"
+        },
+        {
+          "name": "ins-partner-name",
+          "value": "{\"data\":\"pichaubr\",\"_expires\":1783296549000}"
+        },
+        {
+          "name": "mui-mode",
+          "value": "system"
+        },
+        {
+          "name": "PICHAU_BROWSER_PERSISTENCE__PAST_SEARCH",
+          "value": "{\"value\":\"[\\\"ssd 1tb sata\\\"]\",\"timeStored\":1783210148445,\"ttl\":null}"
+        },
+        {
+          "name": "ltp-result",
+          "value": "{\"data\":false,\"_expires\":1783296549000}"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gsid_dc\":{\"value\":{\"joinId\":\"tPjV4oaRxoZnsYNOrMa1L7BN9K7QdP_ZBw\",\"lastJoinedTimeMs\":1783210142500},\"expires\":1783210442500},\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1783210142503},\"expires\":1790986142503},\"gtg_load_status\":{\"status\":3,\"expires\":1783296543181}}"
+        },
+        {
+          "name": "ins-uVDate",
+          "value": "{\"data\":[1783210143],\"_expires\":1814746143000}"
+        },
+        {
+          "name": "insUserPermissionGranted",
+          "value": "{\"data\":{\"state\":null},\"_expires\":1814746149000}"
+        },
+        {
+          "name": "ins-sourceUrl",
+          "value": "{\"data\":\"\",\"_expires\":1785802143000}"
+        },
+        {
+          "name": "spUID",
+          "value": "{\"data\":\"1783210143160e8d086269e.4909c22b\",\"_expires\":1814746149000}"
+        },
+        {
+          "name": "mui-color-scheme-dark",
+          "value": "dark"
+        },
+        {
+          "name": "ins-current-currency",
+          "value": "{\"data\":\"BRL\",\"_expires\":1783296549000}"
+        },
+        {
+          "name": "ins-log-tracking-hit",
+          "value": "{\"data\":{\"sc\":0,\"ec\":2},\"_expires\":1783296549000}"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1783210143253"
+        },
+        {
+          "name": "ins-gaSSId",
+          "value": "{\"data\":{\"id\":\"f5ynkq6j-4sop-clgf-9eff-zoms5rafkrhu_1783210143\"},\"_expires\":1783211943000}"
+        },
+        {
+          "name": "3371dcfa-ec60-4bdc-ab31-b79fa36f8073",
+          "value": "{\"isUserCreateSent\":false,\"subDomainName\":\"pichau\",\"lastActivitySent\":\"2026-07-05T00:09:08.004Z\"}"
+        },
+        {
+          "name": "ltp-result-request-sent",
+          "value": "{\"data\":true,\"_expires\":1783210164000}"
+        },
+        {
+          "name": "insCustomAttributes",
+          "value": "{\"data\":{\"product_pix_badge\":\"no PIX com 15% desconto\"},\"_expires\":1814746150000}"
+        },
+        {
+          "name": "ins-landingPage",
+          "value": "{\"data\":\"https://www.pichau.com.br/\",\"_expires\":1785802143000}"
+        },
+        {
+          "name": "lastExternalReferrer",
+          "value": "empty"
+        },
+        {
+          "name": "mui-color-scheme-light",
+          "value": "light"
+        },
+        {
+          "name": "insUserInfoHash",
+          "value": "{\"data\":897519760,\"_expires\":1814746150000}"
+        },
+        {
+          "name": "ins-default-attributes",
+          "value": "{\"data\":{\"last_abandoned_cart_amount\":0,\"last_visited_category_url\":\"https://www.pichau.com.br/\",\"last_visited_product_img\":\"https://image.useinsider.com/pichaubr/webPushDefaultImage/owjlG09GUmQe1QfR4SKS1683224310.png\",\"last_visited_product_url\":\"https://www.pichau.com.br/\",\"last_abandoned_product_img\":\"https://image.useinsider.com/pichaubr/webPushDefaultImage/owjlG09GUmQe1QfR4SKS1683224310.png\",\"last_abandoned_product_url\":\"https://www.pichau.com.br/\",\"search_query\":\"ssd 1tb sata\"},\"_expires\":1814746149000}"
+        }
+      ]
+    },
+    {
+      "origin": "https://pichau.freshchat.com",
+      "localStorage": [
+        {
+          "name": "3371dcfa-ec60-4bdc-ab31-b79fa36f8073",
+          "value": "{\"isUserCreateSent\":false,\"subDomainName\":\"pichau\",\"lastActivitySent\":\"2026-07-05T00:09:08.004Z\"}"
+        },
+        {
+          "name": "debug",
+          "value": "undefined"
+        },
+        {
+          "name": "hop-3371dcfa-ec60-4bdc-ab31-b79fa36f8073",
+          "value": "{\"hop\":\"1783210147232\"}"
+        }
+      ]
+    }
+  ]
+}

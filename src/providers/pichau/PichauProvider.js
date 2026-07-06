@@ -32,9 +32,28 @@ const parsePrice = priceText => {
   if (!priceText) {
     return null;
   }
+  // Extract the last R$ value (price_vista is typically the first price shown;
+  // but some cards show "de R$ value por" where the "de" and "por" wrap the price).
+  // Extract all R$ values and return the one that converts cleanly.
+  const matches = priceText.match(/R\$([\d.]+,?\d*)/g);
+  if (matches) {
+    for (const match of matches) {
+      const cleaned = match
+        .replace('R$', '')
+        .replace(/\./g, '')
+        .replace(',', '.');
+      const value = Number(cleaned);
+      if (Number.isFinite(value) && value > 0) {
+        return value;
+      }
+    }
+  }
+  // Fallback: try cleaning the full text
   const cleaned = priceText
     .replace(/\s/g, '')
-    .replace('R$', '')
+    .replace(/R\$/g, '')
+    .replace(/de/g, '')
+    .replace(/por/g, '')
     .replace(/\./g, '')
     .replace(',', '.');
   const value = Number(cleaned);
@@ -113,9 +132,19 @@ class PichauProvider extends ProductProvider {
     await currentPage.keyboard.press('Enter');
 
     await currentPage.waitForSelector('a[data-cy="list-product"]', {timeout: 30000});
-    await currentPage.waitForTimeout(1500);
+    // Wait for product count to be >0 (not just selector existence, which can be
+    // fleeting during RSC navigation) and stable for 300ms.
+    await currentPage.waitForFunction(() => {
+      const cards = document.querySelectorAll('a[data-cy="list-product"]');
+      let count = 0;
+      for (let i = 0; i < cards.length; i++) {
+        if (cards[i].querySelector('h2')?.textContent?.trim()) count++;
+      }
+      return count;
+    }, {timeout: 10000});
 
-    const rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
+    // Extract products with a retry: if $$eval returns 0, try once more after 500ms.
+    let rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
       cards.map(card => {
         const title = card.querySelector('h2')?.textContent?.trim() || null;
         const priceElement = card.querySelector('.price_vista, .price_total, [class*="price"]');
@@ -127,6 +156,22 @@ class PichauProvider extends ProductProvider {
         };
       })
     );
+
+    if (rawProducts.length === 0) {
+      await currentPage.waitForTimeout(500);
+      rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
+        cards.map(card => {
+          const title = card.querySelector('h2')?.textContent?.trim() || null;
+          const priceElement = card.querySelector('.price_vista, .price_total, [class*="price"]');
+          const priceText = priceElement?.textContent?.trim() || null;
+          return {
+            title,
+            priceText,
+            url: card.getAttribute('href')
+          };
+        })
+      );
+    }
 
     const products = normalizeProducts(rawProducts);
     const pagination = await detectPagination(currentPage);

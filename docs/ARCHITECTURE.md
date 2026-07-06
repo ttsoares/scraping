@@ -134,6 +134,40 @@ src/
 
 See `docs/ROBUSTNESS.md` and `docs/TASK.md` for technical debt, limitations, and migration path.
 
+## Retailer Comparison & Genericity
+
+### Candidate Retailers
+
+Three candidate retailers were evaluated for architectural compatibility:
+
+| Retailer    | Next.js | RSC | Cloudflare | Pagination | Price | Compatible |
+|------------|---------|-----|------------|------------|-------|------------|
+| **Pichau** | Yes     | Yes | Yes        | `page=`      | R$    | Current    |
+| **Kabum**  | Yes     | No  | No         | `page_number=` | R$    | ✅ High     |
+| **TBS**    | No      | No  | No         | URL params   | R$    | ✅ High     |
+| **ML**     | No      | No  | No         | `[class*="pagination"]` | R$ | ✅ High     |
+
+### Key Research Findings
+
+1. **Framework detection is optional**: Pichau and Kabum use Next.js with `window.__NEXT_DATA__`, while TBS and MercadoLivre don't. The DOM scraping strategy works for both.
+2. **Product selectors are extensible**: Pichau uses specific `a[data-cy="list-product"]`, but broader patterns like `[class*="product"]` and `[data-testid*="product"]` work across retailers.
+3. **Price format is consistent**: All retailers use Brazilian Real (R$) with comma decimal separator.
+4. **Pagination varies by retailer**: `page=` (Pichau), `page_number=` (Kabum), and `[class*="pagination"]` (ML) patterns are all discoverable.
+5. **Anti-bot is uniform**: Stealth Chromium works for all retailers, with Cloudflare being the most complex case.
+
+### Generified Selector Strategy
+
+To support multiple retailers without changing the provider interface:
+
+```
+Product card: a[data-cy="list-product"] (Pichau) → [class*="product"] (generic)
+Price class: .price_vista → [class*="price"] (generic)
+Search input: input[type="search"] → input[placeholder*="busca"] (Kabat/TBS)
+Pagination: page= → page= | page_number= → [class*="pagination"]
+```
+
+See `docs/ROBUSTNESS.md` for the full comparison document with detailed analysis.
+
 ## Running Verifier
 
 ```bash

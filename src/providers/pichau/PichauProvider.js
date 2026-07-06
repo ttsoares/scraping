@@ -7,25 +7,137 @@ chromium.use(stealthPlugin);
 const HOME_URL = 'https://www.pichau.com.br/';
 const SOURCE = 'pichau';
 
+// --- Custom error types for meaningful error differentiation ---
+
+class PichauProviderError extends Error {
+  constructor(message, code) {
+    super(message);
+    this.name = 'PichauProviderError';
+    this.code = code; // e.g., 'CLOUDFLARE', 'NO_PRODUCTS', 'INPUT_NOT_FOUND', 'TIMEOUT', 'NAVIGATION', 'DOM_CHANGED'
+  }
+}
+
+class CloudflareDetected extends PichauProviderError {
+  constructor() {
+    super('Cloudflare challenge detected. Expected status 200/404 with application HTML.', 'CLOUDFLARE');
+    this.name = 'CloudflareDetected';
+  }
+}
+
+class NoProductsFound extends PichauProviderError {
+  constructor(query) {
+    super(`Search for "${query}" returned zero products after retry.`, 'NO_PRODUCTS');
+    this.name = 'NoProductsFound';
+  }
+}
+
+class SearchInputNotFound extends PichauProviderError {
+  constructor() {
+    super('Search input not found within timeout.', 'INPUT_NOT_FOUND');
+    this.name = 'SearchInputNotFound';
+  }
+}
+
+class NavigationError extends PichauProviderError {
+  constructor(message) {
+    super(`Navigation failure: ${message}`, 'NAVIGATION');
+    this.name = 'NavigationError';
+  }
+}
+
+class TimeoutError extends PichauProviderError {
+  constructor(phase) {
+    super(`Timeout during: ${phase}`, 'TIMEOUT');
+    this.name = 'TimeoutError';
+  }
+}
+
+class DomChanged extends PichauProviderError {
+  constructor(message) {
+    super(`DOM structure changed: ${message}`, 'DOM_CHANGED');
+    this.name = 'DomChanged';
+  }
+}
+
 let browser = null;
 let context = null;
 let page = null;
 
+// --- Browser lifecycle ---
+
+const healthCheck = async () => {
+  if (!browser) return false;
+  if (!page || page.isClosed()) return false;
+
+  // Check page is navigated and responsive
+  const state = await page.evaluate(() => {
+    return {
+      title: document.title,
+      location: window.location.href,
+      hasBody: !!document.body
+    };
+  }).catch(() => ({title: '', location: '', hasBody: false}));
+
+  return state.hasBody && state.location.length > 0;
+};
+
 const ensurePage = async () => {
+  // Fast path: page exists and is valid
   if (page && !page.isClosed()) {
-    return page;
+    const isValid = await healthCheck();
+    if (isValid) return page;
   }
 
+  // Slow path: recreate page
   if (!browser) {
     browser = await chromium.launch({headless: true});
   }
 
+  // Recreate context if it's defunct
   if (!context) {
     context = await browser.newContext();
   }
 
   page = await context.newPage();
   return page;
+};
+
+// Explicit shutdown for resource cleanup
+const shutdown = async () => {
+  try {
+    if (page && !page.isClosed()) {
+      await page.close();
+    }
+    if (context) {
+      await context.close();
+    }
+    if (browser) {
+      await browser.close();
+    }
+  } finally {
+    page = null;
+    context = null;
+    browser = null;
+  }
+};
+
+// --- Error detection helpers ---
+
+const checkCloudflare = async (currentPage) => {
+  const title = await currentPage.title();
+  if (title.includes('Manutenção') || title.includes('Pru Pru')) {
+    throw new CloudflareDetected();
+  }
+};
+
+const filterValidProducts = (products) => {
+  return products.filter((item) => {
+    // Filter out items with empty titles
+    if (!item.title || !item.title.trim()) return false;
+    // Filter out "Ver todas" and similar navigation items
+    if (['Ver todas', 'Ver todos', ''].includes(item.title.trim())) return false;
+    return true;
+  });
 };
 
 const parsePrice = priceText => {
@@ -186,4 +298,4 @@ class PichauProvider extends ProductProvider {
   }
 }
 
-module.exports = {PichauProvider};
+module.exports = {PichauProvider, shutdown, PichauProviderError, CloudflareDetected, NoProductsFound, SearchInputNotFound, NavigationError, TimeoutError, DomChanged};

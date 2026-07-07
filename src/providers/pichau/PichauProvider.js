@@ -225,7 +225,7 @@ const detectPagination = async currentPage => {
 };
 
 class PichauProvider extends ProductProvider {
-  async search(query, _options = {}) {
+  async search(query, options = {}) {
     if (!query || typeof query !== 'string') {
       throw new Error('query must be a non-empty string');
     }
@@ -254,6 +254,14 @@ class PichauProvider extends ProductProvider {
       }
       return count;
     }, {timeout: 10000});
+
+    // Navigate to pagination if pageNum specified in options
+    if (options.pageNum && options.pageNum > 1) {
+      const currentUrl = new URL(currentPage.url());
+      currentUrl.searchParams.set('page', String(options.pageNum));
+      await currentPage.goto(currentUrl.toString(), {waitUntil: 'networkidle'});
+      await currentPage.waitForTimeout(3000);
+    }
 
     // Extract products with a retry: if $$eval returns 0, try once more after 500ms.
     let rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>

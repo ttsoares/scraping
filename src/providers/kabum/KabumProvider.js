@@ -103,7 +103,7 @@ const detectPagination = async currentPage => {
 // --- Main Provider ---
 
 class KabumProvider extends ProductProvider {
-  async search(query, _options = {}) {
+  async search(query, options = {}) {
     if (!query || typeof query !== 'string') {
       throw new Error('query must be a non-empty string');
     }
@@ -119,6 +119,14 @@ class KabumProvider extends ProductProvider {
     await currentPage.keyboard.press('Enter');
 
     // Wait for SPA to re-render
+
+    // Navigate to pagination if pageNum specified in options
+    if (options.pageNum && options.pageNum > 1) {
+      const currentUrl = new URL(currentPage.url());
+      currentUrl.searchParams.set('page_number', String(options.pageNum));
+      await currentPage.goto(currentUrl.toString(), { waitUntil: 'networkidle' });
+      await currentPage.waitForTimeout(3000);
+    }
     await currentPage.waitForTimeout(4000);
 
     // Extract product divs: must have a link AND R$ price

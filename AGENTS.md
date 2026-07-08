@@ -32,3 +32,14 @@
 - Price text often includes list + pix + installment prices; ignore matches preceded by "x de" to drop installment values.
 - Title extraction may include promo prefixes; cleanup strips "Selo:", "Produto Patrocinado", and rating prefixes.
 
+
+## MercadoLivre research (Loop 4)
+- Search navigates to `https://lista.mercadolivre.com.br/<slug>` where slug is query with spaces replaced by `-` (e.g., `ssd 1tb` → `https://lista.mercadolivre.com.br/ssd-1tb`).
+- Results are server-rendered HTML; product cards are `li.ui-search-layout__item` with titles in `h2` and prices under `.poly-price__current` / `.ui-search-price`.
+- Pagination uses `_Desde_<offset>_NoIndex_True` (48 results per page; offset = (page-1)*48 + 1). Direct URLs like `https://lista.mercadolivre.com.br/ssd-1tb_Desde_49_NoIndex_True` work.
+- Ads are marked with `.ui-search-item__ad` / `.poly-component__ads-promotions`; ad tracking calls hit `https://www.mercadolivre.com.br/adn/api`.
+- No GraphQL endpoints observed; only HTML + analytics (`melidata`) and ads requests; no explicit CAPTCHA triggered with Playwright stealth.
+
+## MercadoLivre provider implementation
+- `src/providers/mercadolivre/MercadoLivreProvider.js` mirrors other providers: Playwright + stealth, DOM extraction from `li.ui-search-layout__item`, pagination computed via `_Desde_` URLs.
+

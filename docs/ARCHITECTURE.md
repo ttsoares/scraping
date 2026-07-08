@@ -1,15 +1,16 @@
-# PichauProvider Architecture
+# Provider Architecture (Pichau + KaBuM)
 
 ## Overview
 
-PichauProvider is a minimal, robust provider for scraping product data from Pichau's e-commerce site (https://www.pichau.com.br/). It uses Playwright with stealth mode to bypass Cloudflare and extracts products via DOM selectors.
+PichauProvider and KabumProvider are minimal, robust providers for scraping product data from Brazilian e-commerce sites (Pichau and KaBuM). They use Playwright with stealth mode to bypass anti-bot measures and extract products via DOM selectors. Both providers expose the same CommonJS interface (`search()` + `shutdown()`), which the Next.js API route consumes.
 
 ## Public Interface
 
 ```javascript
-const {PichauProvider, shutdown} = require('./src/providers/pichau/PichauProvider');
+const {PichauProvider, shutdown: shutdownPichau} = require('./src/providers/pichau/PichauProvider');
+const {KabumProvider, shutdown: shutdownKabum} = require('./src/providers/kabum/KabumProvider');
 
-const provider = new PichauProvider();
+const provider = new PichauProvider(); // or new KabumProvider()
 const result = await provider.search('query');
 
 // result shape
@@ -47,6 +48,13 @@ const result = await provider.search('query');
 - `TimeoutError`: Timeout exceeded (code: TIMEOUT)
 - `DomChanged`: DOM structure changed (code: DOM_CHANGED)
 
+KabumProvider exports the same shape (`KabumProvider`, `shutdown`, and Kabum-specific errors).
+
+### Module system
+
+Providers are CommonJS modules. In Next.js API routes, import them via default import and destructure exports to avoid ESM/CJS interop issues.
+
+
 ## Architecture Layers
 
 ### 1. Browser Layer
@@ -60,9 +68,11 @@ const result = await provider.search('query');
 - **DOM wait**: waitForFunction for product count > 0
 - **Extraction**: $$eval with retry on zero products
 - **Pagination**: Reads page= links from DOM
+- **Kabum specifics**: waits for `/busca/` URL, uses `page_number` query for pagination
 
 ### 3. Parser Layer
 - **parsePrice()**: Handles Brazilian format (R$ 1.234,56), compound prices, fallback
+- **Kabum cleanup**: Strips promotional prefixes from titles and ignores installment prices.
 - **normalizeProducts()**: Converts raw products to standard shape
 - **filterValidProducts()**: Filters out navigation items (Ver todas, etc.)
 - **detectPagination()**: Extracts page links and calculates current/next page
@@ -79,9 +89,13 @@ src/
   providers/
     ProductProvider.js        # Base class (interface)
     pichau/
-      PichauProvider.js       # Pichau implementation (this file)
+      PichauProvider.js       # Pichau implementation
       (no sub-modules needed)
       exports: {PichauProvider, shutdown, PichauProviderError, ...}
+    kabum/
+      KabumProvider.js        # Kabum implementation
+      (no sub-modules needed)
+      exports: {KabumProvider, shutdown, KabumProviderError, ...}
 ```
 
 ## Key Design Decisions
@@ -111,7 +125,8 @@ src/
 ## Robustness Features
 
 ### DOM Selection
-- Data attributes: `a[data-cy="list-product"]`
+- Data attributes: `a[data-cy="list-product"]` (Pichau)
+- Kabum product links: `a[href*="/produto/"]`
 - Semantic fallbacks: `input[placeholder*="procurando"], input[aria-label="Buscar produtos"]`
 - Dynamic waiting (waitForFunction) vs static (waitForTimeout)
 

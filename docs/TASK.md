@@ -1,67 +1,105 @@
-# Loop 2 - Reach the Application
+# Mission
 
-Read all documentation before coding.
+Read the repository documentation before making any changes. Treat the repository as the authoritative source of truth.
 
-## Goal
+Your mission is to implement the first working version of the Engineering Verification UI using Next.js (latest stable release).
 
-Obtain the real search page rather than the Cloudflare challenge.
+This is not a production frontend.
 
-Do not implement ProductProvider until this goal succeeds.
+The objective is to provide a simple web interface that allows developers to manually execute providers and inspect their behavior.
 
-## Research experiments
+## Requirements
 
-Perform and document multiple experiments.
+Create a Next.js application inside the repository.
 
-1. Current Playwright baseline.
-2. Latest Playwright.
-3. launchPersistentContext().
-4. Headed mode.
-5. System Google Chrome (if available).
-6. Home page first, then search.
-7. Wait 30-60 seconds for challenge completion.
-8. Capture cookies and storage state.
-9. Simulate light human interaction (mouse movement, scrolling).
+The application must be easy to run with:
 
-## Browser fingerprint research
+npm install
+npm run dev
 
-Experiment 1
+Do not introduce unnecessary frameworks or complex state-management libraries.
 
-Objective:
+Keep the implementation simple.
 
-Remove the obvious HeadlessChrome fingerprint.
+## Functional requirements
 
-Allowed changes:
+Implement a first working version containing:
 
-- playwright-extra
-- stealth plugin
+search text box
+provider selector
+initially support:
+Pichau
+KaBuM
+Search button
+results table
 
-Do not modify anything else.
+Each result must display at least:
 
-Success:
+image
+title
+price
+store/provider
+product URL
 
-The browser reaches the real Pichau page.
+Below or above the results also display:
 
-Otherwise:
+execution time
+number of products found
+provider used
+current page
 
-Produce evidence explaining why the experiment failed.
-Hide obvious automation signals and browser fingerprints using community-maintained solutions rather than custom hacks.
+Display any provider errors without crashing the UI.
 
-## Deliverables
+## Architecture
 
-docs/research/pichau-site-analysis.md
-docs/research/cloudflare-analysis.md
+The UI must consume the existing provider abstraction.
 
-Save:
+Do not duplicate scraping logic.
 
-- HAR (if possible)
-- HTML snapshots
-- Cookies
-- Storage state
-- Request logs
-- Response logs
+Do not move provider code into the frontend.
 
-## Success criteria
+Keep scraping inside the existing provider layer.
 
-A saved HTML page contains actual products instead of the Cloudflare challenge.
+Design the UI so new providers can be added with minimal changes.
 
-If unsuccessful, produce a ranked comparison of all attempted approaches and explain why each failed.
+## Scope
+
+This loop is only about creating the initial engineering interface.
+
+Do NOT implement:
+
+authentication
+persistence
+production styling
+responsive design
+dark mode
+deployment
+user accounts
+caching
+comparison between providers
+parallel execution
+pagination improvements
+
+Only implement what is necessary to obtain a working engineering tool.
+
+## Documentation
+
+Update repository documentation describing:
+
+architecture
+directory structure
+how to run the UI
+any dependencies introduced
+Verification
+
+## Verify that:
+
+the project builds successfully
+the Next.js application starts
+searches execute correctly using existing providers
+results are displayed correctly
+provider errors are handled gracefully
+
+Stop after verification.
+
+Do not start another task autonomously.

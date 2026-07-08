@@ -25,3 +25,10 @@
 - Provider reuses a shared browser context/page across searches and always starts from the homepage search input.
 - Pagination is detected by collecting `page=` links on the search page.
 
+
+## Kabum provider notes
+- Kabum search navigates to `/busca/<query>`; wait for the URL change before scraping results.
+- Product cards are anchored by `a[href*="/produto/"]`.
+- Price text often includes list + pix + installment prices; ignore matches preceded by "x de" to drop installment values.
+- Title extraction may include promo prefixes; cleanup strips "Selo:", "Produto Patrocinado", and rating prefixes.
+

@@ -119,66 +119,69 @@ class KabumProvider extends ProductProvider {
     await currentPage.keyboard.press('Enter');
 
     // Wait for SPA to re-render
+    const waitForResults = async () =>
+      currentPage.waitForSelector('a[href*="/produto/"]', {timeout: 30000});
+
+    await currentPage.waitForURL(url => url.toString().includes('/busca/'), {timeout: 30000});
+    await waitForResults();
 
     // Navigate to pagination if pageNum specified in options
     if (options.pageNum && options.pageNum > 1) {
       const currentUrl = new URL(currentPage.url());
       currentUrl.searchParams.set('page_number', String(options.pageNum));
-      await currentPage.goto(currentUrl.toString(), { waitUntil: 'networkidle' });
-      await currentPage.waitForTimeout(3000);
+      await currentPage.goto(currentUrl.toString(), {waitUntil: 'networkidle'});
+      await waitForResults();
+      await currentPage.waitForTimeout(1500);
     }
-    await currentPage.waitForTimeout(4000);
 
-    // Extract product divs: must have a link AND R$ price
-    let products = await currentPage.$$eval('div', cards => {
-      return cards
-        .filter(card => {
-          const text = (card.textContent || '').trim();
-          return card.querySelector('a') !== null
-            && text.length > 15
-            && card.innerHTML.includes('R$');
-        })
-        .slice(0, 80)
-        .map(card => {
-          const allText = (card.textContent || '').split('\n')
-            .map(t => t.trim()).filter(Boolean);
-          const title = allText.find(t =>
-            !t.includes('R$') && !t.includes('desconto')
-            && !t.includes('pix') && !t.includes('frete')
-            && t.length > 10
-          ) || allText[0] || null;
+    const products = await currentPage.$$eval('a[href*="/produto/"]', links => {
+      const seen = new Set();
+      const results = [];
 
-          const priceMatch = (card.textContent || '').match(/R\$[\s]*([\d.]+,?\d*)/g);
-          const priceText = priceMatch ? priceMatch[priceMatch.length - 1] : null;
-          const a = card.querySelector('a');
-          const href = a ? (a.getAttribute('href') || a.href || null) : null;
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        if (!href || seen.has(href)) continue;
+        const allText = (link.textContent || '').split('\n')
+          .map(t => t.trim()).filter(Boolean);
+        const combinedText = allText.join(' ');
+        if (!combinedText.includes('R$')) continue;
 
-          return {title: title, priceText: priceText, url: href};
-        });
+        const prePriceText = combinedText.split('R$')[0] || combinedText;
+        let cleanedTitle = prePriceText
+          .replace(/Selo:\s*[\s\S]*?Produto\s+Patrocinado/i, '')
+          .replace(/Selo:\s*\S+(?:\s+\S+)?/i, '')
+          .replace(/Produto\s+Patrocinado/i, '')
+          .replace(/Avaliação\s*[\d.,]+\s*de\s*[\d.,]+/i, '')
+          .replace(/Frete\s+gr[aá]tis\*?/i, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .replace(/^[^A-Za-zÀ-ÿ0-9]+/g, '');
+
+        const fallbackTitle = allText.find(t =>
+          !t.includes('R$') && !t.includes('desconto')
+          && !t.includes('pix') && !t.includes('frete')
+          && t.length > 10
+        ) || allText[0] || null;
+
+        const title = cleanedTitle.length > 10 ? cleanedTitle : fallbackTitle;
+
+        const priceMatches = [];
+        const priceRegex = /R\$\s*[\d.]+,?\d*/g;
+        for (const match of combinedText.matchAll(priceRegex)) {
+          const index = match.index ?? 0;
+          const prefix = combinedText.slice(Math.max(0, index - 10), index).toLowerCase();
+          if (prefix.includes('x de')) continue;
+          priceMatches.push(match[0]);
+        }
+        const priceText = priceMatches.length ? priceMatches[priceMatches.length - 1] : null;
+
+        results.push({title, priceText, url: href});
+        seen.add(href);
+        if (results.length >= 80) break;
+      }
+
+      return results;
     });
-
-    // Fallback
-    if (products.length === 0) {
-      await currentPage.waitForTimeout(500);
-      products = await currentPage.$$eval('div', cards => {
-        return cards.filter(card => {
-          const text = (card.textContent || '').trim();
-          return card.querySelector('a') !== null
-            && text.length > 10
-            && card.innerHTML.includes('R$');
-        }).slice(0, 80).map(card => {
-          const allText = (card.textContent || '').split('\n')
-            .map(t => t.trim()).filter(Boolean);
-          const title = allText.find(t =>
-            !t.includes('R$') && !t.includes('desconto') && !t.includes('pix')
-          ) || allText[0] || null;
-          const priceMatch = (card.textContent || '').match(/R\$[\s]*([\d.]+,?\d*)/g);
-          const priceText = priceMatch ? priceMatch[priceMatch.length - 1] : null;
-          const a = card.querySelector('a');
-          return {title: title, priceText: priceText, url: a ? a.href : null};
-        });
-      });
-    }
 
     return {
       query: query,

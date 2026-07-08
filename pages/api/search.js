@@ -1,12 +1,15 @@
 import pichauModule from '../../src/providers/pichau/PichauProvider';
 import kabumModule from '../../src/providers/kabum/KabumProvider';
+import mercadolivreModule from '../../src/providers/mercadolivre/MercadoLivreProvider';
 
 const {PichauProvider, shutdown: pichauShutdown} = pichauModule;
 const {KabumProvider, shutdown: kabumShutdown} = kabumModule;
+const {MercadoLivreProvider, shutdown: mercadolivreShutdown} = mercadolivreModule;
 
 // Singleton references so the API route reuses the same browser across calls
 let _pichau = null;
 let _kabum = null;
+let _mercadolivre = null;
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -31,8 +34,11 @@ export default async function handler(req, res) {
     } else if (selectedProvider === 'kabum') {
       if (!_kabum) _kabum = new KabumProvider();
       result = await _kabum.search(query.trim(), {pageNum: pageNum || 1});
+    } else if (selectedProvider === 'mercadolivre') {
+      if (!_mercadolivre) _mercadolivre = new MercadoLivreProvider();
+      result = await _mercadolivre.search(query.trim(), {pageNum: pageNum || 1});
     } else {
-      return res.status(400).json({error: `Unknown provider: ${selectedProvider}. Use 'pichau' or 'kabum'.`});
+      return res.status(400).json({error: `Unknown provider: ${selectedProvider}. Use 'pichau', 'kabum', or 'mercadolivre'.`});
     }
 
     const elapsed = Date.now() - startTime;

@@ -1,6 +1,7 @@
 const {chromium} = require('playwright-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
+const {normalizeProducts, parsePrice, toSearchSlug} = require('../shared');
 
 chromium.use(stealthPlugin);
 
@@ -39,35 +40,20 @@ const shutdown = async () => {
   } finally { page = null; context = null; browser = null; }
 };
 
-const toSearchSlug = query => encodeURIComponent(query.trim()).replace(/%20/g, '-');
+// MercadoLivre-specific URL helpers (use shared toSearchSlug)
 
-const buildSearchUrl = query => `${SEARCH_BASE}${toSearchSlug(query)}`;
+const buildUrl = query => `${SEARCH_BASE}${toSearchSlug(query)}`;
 
-const buildPageUrl = (query, pageNum) => {
-  if (!pageNum || pageNum <= 1) return buildSearchUrl(query);
-  const offset = (pageNum - 1) * RESULTS_PER_PAGE + 1;
-  return `${buildSearchUrl(query)}_Desde_${offset}_NoIndex_True`;
+const buildPageUrl = (query, pageNum, resultsPerPage) => {
+  const rpp = resultsPerPage || RESULTS_PER_PAGE;
+  if (!pageNum || pageNum <= 1) return buildUrl(query);
+  const offset = (pageNum - 1) * rpp + 1;
+  return `${buildUrl(query)}_Desde_${offset}_NoIndex_True`;
 };
 
-const parsePrice = priceText => {
-  if (!priceText) return null;
-  const match = priceText.match(/[\d.]+,?\d*/);
-  if (!match) return null;
-  const value = Number(match[0].replace(/\./g, '').replace(',', '.'));
-  return Number.isFinite(value) ? value : null;
-};
-
-const normalizeProducts = products => {
-  return products
-    .filter(item => item.title && item.url)
-    .map(item => ({
-      title: item.title,
-      price: parsePrice(item.priceText),
-      priceText: item.priceText,
-      url: new URL(item.url, HOME_URL).toString(),
-      source: SOURCE
-    }));
-};
+// MercadoLivre has its own parsePrice because prices may lack R$ prefix
+// but shared.parsePrice is still the entry point; MercadoLivre wraps it
+// with per-item logic if needed.
 
 const detectPagination = async currentPage => {
   const pagination = await currentPage.$$eval('.andes-pagination__button', buttons => {
@@ -142,7 +128,8 @@ class MercadoLivreProvider extends ProductProvider {
       return results;
     });
 
-    const products = normalizeProducts(rawProducts);
+    // Use shared normalizeProducts (deduplicates, resolves URLs, attaches source)
+    const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
     const pagination = await detectPagination(currentPage);
     const currentPageNumber = options.pageNum || pagination.currentPage || 1;
 

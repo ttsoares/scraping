@@ -1,6 +1,7 @@
 const {chromium} = require('playwright-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
+const {normalizeProducts, parsePrice} = require('../shared');
 
 chromium.use(stealthPlugin);
 
@@ -140,87 +141,19 @@ const filterValidProducts = (products) => {
   });
 };
 
-const parsePrice = priceText => {
-  if (!priceText) {
-    return null;
-  }
-  // Extract the last R$ value (price_vista is typically the first price shown;
-  // but some cards show "de R$ value por" where the "de" and "por" wrap the price).
-  // Extract all R$ values and return the one that converts cleanly.
-  const matches = priceText.match(/R\$([\d.]+,?\d*)/g);
-  if (matches) {
-    for (const match of matches) {
-      const cleaned = match
-        .replace('R$', '')
-        .replace(/\./g, '')
-        .replace(',', '.');
-      const value = Number(cleaned);
-      if (Number.isFinite(value) && value > 0) {
-        return value;
-      }
-    }
-  }
-  // Fallback: try cleaning the full text
-  const cleaned = priceText
-    .replace(/\s/g, '')
-    .replace(/R\$/g, '')
-    .replace(/de/g, '')
-    .replace(/por/g, '')
-    .replace(/\./g, '')
-    .replace(',', '.');
-  const value = Number(cleaned);
-  return Number.isFinite(value) ? value : null;
-};
-
-const normalizeProducts = products => {
-  return products
-    .filter(item => item.title && item.url)
-    .map(item => {
-      const absoluteUrl = new URL(item.url, HOME_URL).toString();
-      const price = parsePrice(item.priceText);
-
-      return {
-        title: item.title,
-        price,
-        priceText: item.priceText,
-        url: absoluteUrl,
-        source: SOURCE
-      };
-    });
-};
+// --- Pagination ---
 
 const detectPagination = async currentPage => {
-  const paginationLinks = await currentPage.$$eval('a[href*="page="]', links =>
-    links.map(link => link.getAttribute('href')).filter(Boolean)
+  const hrefs = await currentPage.$$eval('a[href*="page="]', links =>
+    links.map(l => l.getAttribute('href')).filter(Boolean)
   );
-
-  const baseUrl = currentPage.url();
-  const currentUrl = new URL(baseUrl);
-  const currentPageNumber = Number(currentUrl.searchParams.get('page') || '1');
-
-  const pageMap = new Map();
-  for (const link of paginationLinks) {
-    try {
-      const url = new URL(link, baseUrl);
-      const pageValue = Number(url.searchParams.get('page'));
-      if (Number.isFinite(pageValue)) {
-        if (!pageMap.has(pageValue)) {
-          pageMap.set(pageValue, url.toString());
-        }
-      }
-    } catch (error) {
-      continue;
-    }
-  }
-
-  const pages = Array.from(pageMap.keys()).sort((a, b) => a - b);
-  const nextPage = pages.find(pageNumber => pageNumber > currentPageNumber) || null;
+  const pageState = require('../shared').createPaginationState(hrefs, currentPage.url(), 'page');
 
   return {
-    currentPage: currentPageNumber,
-    pages,
-    nextPageUrl: nextPage ? pageMap.get(nextPage) : null,
-    hasNextPage: Boolean(nextPage)
+    currentPage: pageState.currentPage,
+    pages: pageState.pages,
+    nextPageUrl: pageState.nextPageUrl,
+    hasNextPage: pageState.hasNextPage
   };
 };
 
@@ -293,7 +226,7 @@ class PichauProvider extends ProductProvider {
       );
     }
 
-    const products = normalizeProducts(rawProducts);
+    const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
     const pagination = await detectPagination(currentPage);
 
     return {

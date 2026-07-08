@@ -1,6 +1,7 @@
 const {chromium} = require('playwright-extra');
 const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
+const {parsePrice, normalizeProducts} = require('../shared');
 
 chromium.use(stealthPlugin);
 
@@ -41,35 +42,6 @@ const shutdown = async () => {
 
 // --- Helpers ---
 
-const parsePrice = priceText => {
-  if (!priceText) return null;
-  const matches = priceText.match(/R\$([\d.]+,?\d*)/g);
-  if (matches) {
-    for (const match of matches) {
-      const value = Number(
-        match.replace('R$', '').replace(/\./g, '').replace(',', '.')
-      );
-      if (Number.isFinite(value) && value > 0) return value;
-    }
-  }
-  const value = Number(
-    priceText.replace(/\s/g, '').replace(/R\$/g, '').replace(/\./g, '').replace(',', '.')
-  );
-  return Number.isFinite(value) ? value : null;
-};
-
-const normalizeProducts = products => {
-  return products
-    .filter(item => item.title && item.url)
-    .map(item => ({
-      title: item.title,
-      price: parsePrice(item.priceText),
-      priceText: item.priceText,
-      url: new URL(item.url, HOME_URL).toString(),
-      source: SOURCE
-    }));
-};
-
 const detectPagination = async currentPage => {
   const paginationLinks = await currentPage.$$eval('a[href*="page_number="]', links =>
     links.map(l => l.getAttribute('href')).filter(Boolean)
@@ -109,7 +81,7 @@ class KabumProvider extends ProductProvider {
     }
 
     const currentPage = await ensurePage();
-    await currentPage.goto(HOME_URL, {waitUntil: 'networkidle'});
+    await currentPage.goto(HOME_URL, {waitUntil: 'domcontentloaded'});
 
     // Locate search input, bypass overlays with force: true
     const searchInput = currentPage.locator('input[name="query"]');
@@ -129,7 +101,7 @@ class KabumProvider extends ProductProvider {
     if (options.pageNum && options.pageNum > 1) {
       const currentUrl = new URL(currentPage.url());
       currentUrl.searchParams.set('page_number', String(options.pageNum));
-      await currentPage.goto(currentUrl.toString(), {waitUntil: 'networkidle'});
+      await currentPage.goto(currentUrl.toString(), {waitUntil: 'domcontentloaded', timeout: 30000});
       await waitForResults();
       await currentPage.waitForTimeout(1500);
     }
@@ -186,7 +158,7 @@ class KabumProvider extends ProductProvider {
     return {
       query: query,
       url: currentPage.url(),
-      products: normalizeProducts(products),
+      products: normalizeProducts(products, {HOME_URL, SOURCE}),
       pagination: await detectPagination(currentPage),
       source: SOURCE
     };

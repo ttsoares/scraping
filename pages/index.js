@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 
-const PROVIDERS = ['pichau', 'kabum'];
+const PROVIDERS = ['pichau', 'kabum', 'mercadolivre'];
 
 export default function EngineeringVerification() {
   const [query, setQuery] = useState('ssd 1tb sata');
@@ -260,7 +260,7 @@ export default function EngineeringVerification() {
           <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>
             Next.js
           </a>{' '}
-          · Providers: Pichau &amp; Kabum · Scraped via DOM + Playwright
+          · Providers: Pichau & KaBuM & Mercado Livre · Scraped via DOM + Playwright
         </p>
       </footer>
     </div>

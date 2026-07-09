@@ -1,0 +1,447 @@
+{
+  "benchmark": "MercadoLivreProvider vs MercadoLivreProviderCrawlee",
+  "date": "2026-07-09T01:20:28.046Z",
+  "queries": [
+    "SSD 1TB",
+    "RTX 5070",
+    "Ryzen 9600X",
+    "Gabinete Montech"
+  ],
+  "runsPerQuery": 3,
+  "results": [
+    {
+      "provider": "ML (Playwright)",
+      "query": "SSD 1TB",
+      "avgTime": 4450,
+      "avgProducts": 48,
+      "minTime": 2743,
+      "maxTime": 6529,
+      "productsReturned": 48,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 48,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "SSD 1TB",
+          "totalTime": 6529,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        },
+        {
+          "run": 2,
+          "query": "SSD 1TB",
+          "totalTime": 4079,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        },
+        {
+          "run": 3,
+          "query": "SSD 1TB",
+          "totalTime": 2743,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        }
+      ]
+    },
+    {
+      "provider": "ML (Playwright)",
+      "query": "RTX 5070",
+      "avgTime": 2743,
+      "avgProducts": 45,
+      "minTime": 2376,
+      "maxTime": 3376,
+      "productsReturned": 45,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 45,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "RTX 5070",
+          "totalTime": 3376,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 2,
+          "query": "RTX 5070",
+          "totalTime": 2477,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 3,
+          "query": "RTX 5070",
+          "totalTime": 2376,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        }
+      ]
+    },
+    {
+      "provider": "ML (Playwright)",
+      "query": "Ryzen 9600X",
+      "avgTime": 2869,
+      "avgProducts": 46,
+      "minTime": 2306,
+      "maxTime": 3867,
+      "productsReturned": 46,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 46,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "Ryzen 9600X",
+          "totalTime": 3867,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        },
+        {
+          "run": 2,
+          "query": "Ryzen 9600X",
+          "totalTime": 2306,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        },
+        {
+          "run": 3,
+          "query": "Ryzen 9600X",
+          "totalTime": 2433,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        }
+      ]
+    },
+    {
+      "provider": "ML (Playwright)",
+      "query": "Gabinete Montech",
+      "avgTime": 3171,
+      "avgProducts": 45,
+      "minTime": 2506,
+      "maxTime": 4127,
+      "productsReturned": 45,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 45,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "Gabinete Montech",
+          "totalTime": 4127,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 2,
+          "query": "Gabinete Montech",
+          "totalTime": 2879,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 3,
+          "query": "Gabinete Montech",
+          "totalTime": 2506,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        }
+      ]
+    },
+    {
+      "provider": "ML Crawlee",
+      "query": "SSD 1TB",
+      "avgTime": 11365,
+      "avgProducts": 48,
+      "minTime": 11067,
+      "maxTime": 11639,
+      "productsReturned": 48,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 48,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "SSD 1TB",
+          "totalTime": 11639,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        },
+        {
+          "run": 2,
+          "query": "SSD 1TB",
+          "totalTime": 11067,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        },
+        {
+          "run": 3,
+          "query": "SSD 1TB",
+          "totalTime": 11388,
+          "productsReturned": 48,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 48
+        }
+      ]
+    },
+    {
+      "provider": "ML Crawlee",
+      "query": "RTX 5070",
+      "avgTime": 9255,
+      "avgProducts": 31,
+      "minTime": 7125,
+      "maxTime": 10482,
+      "productsReturned": 0,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 0,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "RTX 5070",
+          "totalTime": 7125,
+          "productsReturned": 0,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 0
+        },
+        {
+          "run": 2,
+          "query": "RTX 5070",
+          "totalTime": 10482,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        },
+        {
+          "run": 3,
+          "query": "RTX 5070",
+          "totalTime": 10159,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        }
+      ]
+    },
+    {
+      "provider": "ML Crawlee",
+      "query": "Ryzen 9600X",
+      "avgTime": 10460,
+      "avgProducts": 46,
+      "minTime": 10252,
+      "maxTime": 10775,
+      "productsReturned": 46,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 46,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "Ryzen 9600X",
+          "totalTime": 10775,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        },
+        {
+          "run": 2,
+          "query": "Ryzen 9600X",
+          "totalTime": 10352,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        },
+        {
+          "run": 3,
+          "query": "Ryzen 9600X",
+          "totalTime": 10252,
+          "productsReturned": 46,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 46
+        }
+      ]
+    },
+    {
+      "provider": "ML Crawlee",
+      "query": "Gabinete Montech",
+      "avgTime": 13303,
+      "avgProducts": 45,
+      "minTime": 10614,
+      "maxTime": 18674,
+      "productsReturned": 45,
+      "hasValidPrice": true,
+      "hasValidTitle": true,
+      "hasValidUrl": true,
+      "hasValidPagination": true,
+      "source": "mercadolivre",
+      "uniqueTitles": 45,
+      "allRuns": [
+        {
+          "run": 1,
+          "query": "Gabinete Montech",
+          "totalTime": 10614,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 2,
+          "query": "Gabinete Montech",
+          "totalTime": 18674,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        },
+        {
+          "run": 3,
+          "query": "Gabinete Montech",
+          "totalTime": 10622,
+          "productsReturned": 45,
+          "hasValidPrice": true,
+          "hasValidTitle": true,
+          "hasValidUrl": true,
+          "hasValidPagination": true,
+          "source": "mercadolivre",
+          "uniqueTitles": 45
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "ml": {
+      "avgTime": 3308,
+      "avgProducts": 46
+    },
+    "mlc": {
+      "avgTime": 11096,
+      "avgProducts": 42.5
+    }
+  }
+}

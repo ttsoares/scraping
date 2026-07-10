@@ -18,33 +18,65 @@
 function parsePrice(priceText, { currencyPrefix = 'R$' } = {}) {
   if (!priceText) return null;
 
+  const text = String(priceText);
   const escapedPrefix = currencyPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const pattern = currencyPrefix === 'R$'
-    ? new RegExp(`${escapedPrefix}([\\d.]+,?\\d*)`, 'g')
-    : new RegExp(`${escapedPrefix}\\s*([\\d.]+,?\\d*)`, 'g');
-  const matches = priceText.match(pattern);
 
-  if (matches) {
-    for (const match of matches) {
-      // If no prefix in the match, the regex captured without requiring it for the R$ fallback
-      const cleaned = match
-        .replace(currencyPrefix, '')
-        .replace(/\./g, '')
-        .replace(',', '.');
-      const value = Number(cleaned);
-      if (Number.isFinite(value) && value > 0) return value;
+  const normalizeNumeric = (value) => {
+    const compact = value.trim().replace(/\s+/g, '');
+    if (!compact) return null;
+
+    if (compact.includes(',')) {
+      const normalized = compact.replace(/\./g, '').replace(',', '.');
+      const parsed = Number(normalized);
+      return Number.isFinite(parsed) ? parsed : null;
     }
+
+    if (/^\d{1,3}(?:\.\d{3})+$/.test(compact)) {
+      const parsed = Number(compact.replace(/\./g, ''));
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    const normalized = compact.replace(/[^\d.]/g, '');
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : null;
+  };
+
+  const isInstallmentContext = (index, length) => {
+    const left = text.slice(Math.max(0, index - 12), index).toLowerCase();
+    const right = text.slice(index + length, index + length + 4).toLowerCase();
+    if (/\d\s*[x×]\s*de\s*$/.test(left) || /\d\s*[x×]\s*$/.test(left)) return true;
+    if (/^[x×]/.test(right)) return true;
+    return false;
+  };
+
+  const prefixPattern = new RegExp(`${escapedPrefix}\\s*([\\d\s.,]+)`, 'gi');
+  const prefixCandidates = [];
+  let match;
+
+  while ((match = prefixPattern.exec(text)) !== null) {
+    if (isInstallmentContext(match.index, match[0].length)) continue;
+    const value = normalizeNumeric(match[1]);
+    if (Number.isFinite(value) && value > 0) prefixCandidates.push(value);
   }
 
-  // Fallback: clean the full text and try to parse a number
-  const cleaned = priceText
-    .replace(/\s/g, '')
-    .replace(new RegExp(escapedPrefix, 'g'), '')
-    .replace(/\./g, '')
-    .replace(',', '.');
+  if (prefixCandidates.length) {
+    return Math.min(...prefixCandidates);
+  }
 
-  const value = Number(cleaned);
-  return Number.isFinite(value) ? value : null;
+  const fallbackPattern = /\d[\d.,\s]*/g;
+  const fallbackCandidates = [];
+
+  while ((match = fallbackPattern.exec(text)) !== null) {
+    if (isInstallmentContext(match.index, match[0].length)) continue;
+    const value = normalizeNumeric(match[0]);
+    if (Number.isFinite(value) && value > 0) fallbackCandidates.push(value);
+  }
+
+  if (fallbackCandidates.length) {
+    return Math.max(...fallbackCandidates);
+  }
+
+  return null;
 }
 
 /**

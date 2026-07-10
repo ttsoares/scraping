@@ -269,6 +269,21 @@
   word-break: break-all;
 }
 
+.persistedBadge {
+  font-weight: 600;
+  color: var(--color-primary, #38bdf8);
+}
+
+.badgeSuccess {
+  font-weight: 600;
+  color: var(--color-primary, #38bdf8);
+}
+
+.badgeWarning {
+  font-weight: 600;
+  color: var(--color-warning, #f59e0b);
+}
+
 /* --- Error Badge --- */
 .errorBadge {
   margin: 1rem 1.5rem;

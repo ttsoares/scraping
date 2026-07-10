@@ -54,6 +54,9 @@ KabumProvider exports the same shape (`KabumProvider`, `shutdown`, and Kabum-spe
 
 Providers are CommonJS modules. In Next.js API routes, import them via default import and destructure exports to avoid ESM/CJS interop issues.
 
+### Runtime guideline
+
+Prefer built-in Node.js APIs over third-party libraries when equivalents exist (for example, use `crypto.randomUUID()` for IDs).
 
 ## Architecture Layers
 
@@ -148,6 +151,88 @@ src/
 ## Technical Debt (Documented)
 
 See `docs/ROBUSTNESS.md` and `docs/TASK.md` for technical debt, limitations, and migration path.
+
+## Persistence Layer
+
+> Introduced to transform the Engineering Console from an ephemeral scraper
+> into a persistent product intelligence platform.
+
+### Architecture
+
+The persistence layer follows the **Repository pattern**: an abstract interface
+(`Repository`) is implemented by a concrete SQLite backend
+(`SQLiteRepository`). A `SearchService` orchestrates the search pipeline —
+calling the provider, persisting the result, and enriching the response with
+persistence metadata.
+
+```
+┌──────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│  pages/api   │────▶│  SearchService   │────▶│  Repository     │
+│  search.js   │     │  (orchestrator)  │     │  (abstraction)  │
+└──────────────┘     └──────────────────┘     └────────┬────────┘
+                                                        │
+                                          ┌───────────┴──────────┐
+                                          │                        │
+                                    ┌─────▼─────┐          ┌─────▼─────┐
+                                    │   SQLite    │          │ PostgreSQL │
+                                    │ (current)   │ (future) │ (future)  │
+                                    └────────────┘          └────────────┘
+```
+
+### File Structure
+
+```
+src/
+  repository/
+    Repository.js           # Abstract interface
+    SQLiteRepository.js     # SQLite implementation (better-sqlite3)
+  services/
+    SearchService.js        # Search pipeline orchestrator
+```
+
+### Search Pipeline
+
+1. **Request arrives** at `pages/api/search.js` with `{ query, provider, pageNum }`.
+2. **Provider selected** — PichauProvider, KabumProvider, or MercadoLivreProvider.
+3. **Provider.search()** is called via a wrapper function.
+4. **SearchService.search()** persists:
+   - **Search record** (searches table) — query, provider, status, productCount, pagination, executionTime.
+   - **Raw products** (raw_products table) — each product as a separate row.
+   - **Normalized products** (normalized_products table) — cleaned price, deduplicated.
+5. **Enriched response** returned with `searchId`, `persisted`, `persistence`.
+
+### Database Schema
+
+The SQLite database (`data/scraper.db`) uses three tables:
+
+| Table | Purpose | Key Columns |
+|-------|---------|-------------|
+| `searches` | Search request metadata | id (UUID), query, provider, status, productCount, executionTime, createdAt |
+| `raw_products` | Raw product data from provider | id (UUID), searchId, title, priceText, providerProductId |
+| `normalized_products` | Cleaned & deduplicated data | id (UUID), searchId, searchProductId, price, url |
+
+- Each table has a `searchId` foreign key linking records to the parent search.
+- `raw_products` preserves the provider's original data exactly as scraped.
+- `normalized_products` stores cleaned prices and de-duplicated entries.
+- Future: `priceHistory` table (price per day), `confidence_scores`.
+
+### Repository Pattern
+
+The `Repository` interface decouples the rest of the system from storage details:
+
+```typescript
+interface Repository {
+  createSearch(searchRecord: SearchRecord): Promise<void>;
+  persistRawProducts(searchId: string, products: Product[]): Promise<void>;
+  persistNormalizedProducts(searchId: string, products: Product[]): Promise<void>;
+  getSearch(searchId: string): Promise<SearchRecord | null>;
+  getDBStatus(): Promise<DBStatus>;
+  close(): Promise<void>;
+}
+```
+
+Any storage backend satisfying this interface can be dropped in — PostgreSQL,
+Redis, or a file-based format — with zero changes to `SearchService` or the API layer.
 
 ## Retailer Comparison & Genericity
 

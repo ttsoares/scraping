@@ -43,3 +43,12 @@
 ## MercadoLivre provider implementation
 - `src/providers/mercadolivre/MercadoLivreProvider.js` mirrors other providers: Playwright + stealth, DOM extraction from `li.ui-search-layout__item`, pagination computed via `_Desde_` URLs.
 
+
+## Search persistence notes
+- Search IDs are generated in `SearchService.createSearchId()` using `crypto.randomUUID()`; repositories expect the ID to be passed in (no uuid dependency).
+- Project guidance prefers built-in Node.js APIs over third-party packages when equivalents exist.
+- Normalized product payloads use `source`; `SearchService.search()` maps `provider` onto each product before persistence to satisfy `normalized_products.provider` constraints.
+- Shared `parsePrice` now extracts numeric values from multi-value priceText (handles spaces, comma/period separators, installment markers like `10x`, and dot decimals).
+
+
+

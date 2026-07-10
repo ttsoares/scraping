@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ttsoares/scraping#readme",
   "dependencies": {
+    "better-sqlite3": "^12.11.1",
     "next": "^14.2.35",
     "playwright": "^1.61.1",
     "react": "^18.3.1",

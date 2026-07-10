@@ -189,6 +189,23 @@ export default function EngineeringVerification() {
                     {result.result.url}
                   </span>
                 </span>
+                <span className={styles.stat}>
+                  <span className={styles.statLabel}>Search:</span>{' '}
+                  <span className={styles.statValue}>
+                    {result.result.searchId ? result.result.searchId.substring(0, 8) + '…' : '—'}
+                  </span>
+                </span>
+                <span className={styles.stat}>
+                  <span className={styles.statLabel}>Persisted:</span>{' '}
+                  <span className={`${styles.statValue} ${styles.persistedBadge}`}>
+                    {result.result.persisted != null ? result.result.persisted : result.result.productCount} products
+                  </span>
+                </span>
+                <span className={styles.stat}>
+                  <span className={`${styles.statValue} ${result.result.persistence?.failed ? styles.badgeWarning : styles.badgeSuccess}`}>
+                    {result.result.persistence?.failed ? '⚠ Recovery pending' : '✓ Stored in DB'}
+                  </span>
+                </span>
               </div>
             </div>
 

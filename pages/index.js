@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 
 const PROVIDERS = ['pichau', 'kabum', 'mercadolivre'];
+const VIEW_MODES = ['raw', 'normalized', 'both'];
 
 export default function EngineeringVerification() {
   const [query, setQuery] = useState('ssd 1tb sata');
@@ -10,6 +11,7 @@ export default function EngineeringVerification() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
+  const [viewMode, setViewMode] = useState('both');
 
   const handleSearch = async () => {
     setLoading(true);
@@ -53,6 +55,36 @@ export default function EngineeringVerification() {
     if (ms < 1000) return `${ms}ms`;
     return `${(ms / 1000).toFixed(1)}s`;
   };
+
+  const formatCurrency = (price, currency = 'BRL') => {
+    if (price == null) return 'N/A';
+    return price.toLocaleString('pt-BR', { style: 'currency', currency });
+  };
+
+  const getStatusBadge = (availability) => {
+    if (!availability) return null;
+    const base = styles.badge;
+    const map = {
+      in_stock: styles.badgeSuccess,
+      out_of_stock: styles.badgeWarning,
+      unknown: styles.badgeNeutral,
+    };
+    const label = availability.replace('_', ' ').toUpperCase();
+    return `<span class="${base} ${map[availability] || map.unknown}">${label}</span>`;
+  };
+
+  const getDisplayProducts = () => {
+    if (viewMode === 'raw') return result?.result?.products || [];
+    if (viewMode === 'normalized') return result?.result?.normalizedProducts || [];
+    return result?.result?.products || []; // both mode uses raw + shows normalized columns
+  };
+
+  const getNormalizedProductsForMode = () => {
+    if (viewMode === 'raw') return [];
+    return result?.result?.normalizedProducts || [];
+  };
+
+  const getViewModeLabel = () => viewMode.charAt(0).toUpperCase() + viewMode.slice(1);
 
   return (
     <div className={styles.container}>
@@ -144,6 +176,25 @@ export default function EngineeringVerification() {
               </div>
             </div>
 
+            {/* View Mode Toggle */}
+            {result?.result?.normalizedProducts?.length > 0 && (
+              <div className={styles.inputGroup}>
+                <label className={styles.inputLabel}>View</label>
+                <div className={styles.providerButtons}>
+                  {VIEW_MODES.map((vm) => (
+                    <button
+                      key={vm}
+                      type="button"
+                      className={`${styles.providerButton} ${viewMode === vm ? styles.active : ''}`}
+                      onClick={() => setViewMode(vm)}
+                    >
+                      {vm.charAt(0).toUpperCase() + vm.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Search Button */}
             <div className={styles.inputGroup}>
               <label className={styles.inputLabel}>&nbsp;</label>
@@ -224,37 +275,91 @@ export default function EngineeringVerification() {
                 <thead>
                   <tr>
                     <th className={styles.tableHeaderCell}>#</th>
-                    <th className={styles.tableHeaderCell}>Title</th>
-                    <th className={styles.tableHeaderCell}>Price</th>
+                    <th className={`${styles.tableHeaderCell} ${viewMode !== 'raw' ? styles.tableHeaderCell : ''}`} style={viewMode !== 'raw' ? {} : {}}>{viewMode === 'normalized' ? 'Normalized Title' : viewMode === 'both' ? 'Title (Raw / Norm)':'Title'}</th>
+                    <th className={styles.tableHeaderCell}>{viewMode === 'normalized' ? 'Current Price' : 'Price'}</th>
+                    {viewMode === 'normalized' && <th className={styles.tableHeaderCell}>Original Price</th>}
+                    {viewMode === 'both' && <th className={styles.tableHeaderCell}>Norm. Price</th>}
                     <th className={styles.tableHeaderCell}>Price Text</th>
+                    {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Brand / Model</th>}
+                    {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Storage / Memory</th>}
+                    {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Availability</th>}
                     <th className={styles.tableHeaderCell}>URL</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {result.result.products.map((product, idx) => (
-                    <tr key={idx} className={styles.tableRow}>
-                      <td className={styles.tableCell}>{idx + 1}</td>
-                      <td className={styles.tableCell + ' ' + styles.titleCell}>
-                        <span className={styles.productTitle}>{product.title}</span>
-                      </td>
-                      <td className={styles.tableCell + ' ' + styles.priceCell}>
-                        {formatPrice(product.price)}
-                      </td>
-                      <td className={styles.tableCell + ' ' + styles.priceTextCell}>
-                        {product.priceText || 'N/A'}
-                      </td>
-                      <td className={styles.tableCell + ' ' + styles.urlCell}>
-                        <a
-                          href={product.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.productUrl}
-                        >
-                          View →
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
+                  {getDisplayProducts().map((product, idx) => {
+                    const isBoth = viewMode === 'both';
+                    const rawTitle = product.title || '';
+                    const normTitle = product.normalizedTitle || product.title || '';
+                    const displayTitle = isBoth
+                      ? (rawTitle !== normTitle ? <span><small style={{color:'#94a3b8'}}>{rawTitle}</small><br /><span style={{color:'#e2e8f0',fontWeight:600}}>{normTitle}</span></span> : product.title)
+                      : product.title;
+
+                    return (
+                      <tr key={idx} className={styles.tableRow}>
+                        <td className={styles.tableCell}>{idx + 1}</td>
+                        <td className={`${styles.tableCell} ${styles.titleCell}`}>
+                          <span className={styles.productTitle}>{displayTitle}</span>
+                        </td>
+                        <td className={`${styles.tableCell} ${styles.priceCell}`}>
+                          {formatCurrency(product.currentPrice ?? product.price, product.currency)}
+                        </td>
+                        {isBoth && (
+                          <td className={`${styles.tableCell} ${styles.priceCell}`} style={{fontSize:'0.8rem'}}>
+                            <span style={{color:'#f59e0b'}}>{formatCurrency(product.originalPrice, product.currency)}</span>
+                          </td>
+                        )}
+                        {viewMode === 'normalized' && (
+                          <td className={`${styles.tableCell} ${styles.priceCell}`}>
+                            <span style={{color:'#f59e0b'}}>
+                              {product.originalPrice != null ? formatCurrency(product.originalPrice, product.currency) : '—'}
+                            </span>
+                          </td>
+                        )}
+                        <td className={`${styles.tableCell} ${styles.priceTextCell}`}>
+                          {product.priceText || 'N/A'}
+                        </td>
+                        {viewMode !== 'raw' && (
+                          <td className={styles.tableCell}>
+                            <div style={{fontSize:'0.8rem'}}>
+                              <span style={{color:'#38bdf8',fontWeight:500}}>{product.brand || '—'}</span>
+                              {product.model && <span style={{color:'#94a3b8',marginLeft:'4px'}}>· {product.model}</span>}
+                            </div>
+                          </td>
+                        )}
+                        {viewMode !== 'raw' && (
+                          <td className={styles.tableCell}>
+                            <div style={{fontSize:'0.8rem'}}>
+                              <span style={{color:'#4ade80'}}>{product.storageCapacity || '—'}</span>
+                              {product.memoryCapacity && <span style={{color:'#94a3b8',marginLeft:'4px'}}>· {product.memoryCapacity}</span>}
+                            </div>
+                          </td>
+                        )}
+                        {viewMode !== 'raw' && (
+                          <td className={styles.tableCell}>
+                            {product.availability ? (
+                              <span className={`${styles.badge} ${product.availability === 'in_stock' ? styles.badgeSuccess : product.availability === 'out_of_stock' ? styles.badgeWarning : styles.badgeNeutral}`}
+                                style={{fontSize:'0.7rem',padding:'2px 8px'}}>
+                                {product.availability.replace('_', ' ').toUpperCase()}
+                              </span>
+                            ) : (
+                              <span style={{color:'#64748b',fontSize:'0.8rem'}}>—</span>
+                            )}
+                          </td>
+                        )}
+                        <td className={`${styles.tableCell} ${styles.urlCell}`}>
+                          <a
+                            href={product.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.productUrl}
+                          >
+                            View →
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

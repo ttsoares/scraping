@@ -8,6 +8,7 @@
 
 const { randomUUID } = require('crypto');
 const { SQLiteRepository } = require('../repository/SQLiteRepository');
+const { normalizeProducts } = require('../providers/normalizer');
 
 class SearchService {
   /**
@@ -88,10 +89,13 @@ class SearchService {
         provider: product.provider || product.source || providerName,
       }));
 
+      // 2. Normalize products using the dedicated normalizer
+      const normalizedProducts = normalizeProducts(products, providerName);
+
       const statusText = products.length > 0 ? 'success' : 'partial';
       const executionTime = (result.executionTime || 0);
 
-      // 2. Persist via Repository
+      // 3. Persist via Repository (raw + normalized products)
       await repo.createSearch({
         id: searchId,
         query,
@@ -106,9 +110,9 @@ class SearchService {
       searchPersisted = true;
 
       await repo.persistRawProducts(searchId, products);
-      await repo.persistNormalizedProducts(searchId, products);
+      await repo.persistNormalizedProducts(searchId, normalizedProducts);
 
-      // 3. Enrich the result
+      // 4. Enrich the result with both raw and normalized data
       result.searchId = searchId;
       result.persisted = products.length;
 
@@ -118,12 +122,30 @@ class SearchService {
         provider: providerName,
         query,
         url: result.url,
+        // Raw products (as returned by provider)
         products: products.map((p) => ({
           title: p.title,
           price: p.price,
           priceText: p.priceText,
           url: p.url,
           provider: p.provider,
+        })),
+        // Normalized products (side-by-side for comparison)
+        normalizedProducts: normalizedProducts.map((np) => ({
+          originalTitle: np.originalTitle,
+          normalizedTitle: np.normalizedTitle,
+          brand: np.brand,
+          model: np.model,
+          storageCapacity: np.storageCapacity,
+          memoryCapacity: np.memoryCapacity,
+          currency: np.currency,
+          currentPrice: np.currentPrice,
+          originalPrice: np.originalPrice,
+          originalPriceText: np.originalPriceText,
+          availability: np.availability,
+          priceText: np.priceText,
+          url: np.url,
+          provider: np.provider,
         })),
         pagination: result.pagination,
         executionTime,

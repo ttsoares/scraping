@@ -14,7 +14,7 @@ const { Repository, PATHS } = require('./Repository');
 /**
  * Schema version for migration tracking.
  */
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 
 /**
  * Schema SQL (creates all tables if they don't exist).
@@ -61,12 +61,22 @@ const SCHEMA_SQL = `
     id TEXT PRIMARY KEY,
     searchId TEXT NOT NULL,
     provider TEXT NOT NULL,
-    title TEXT NOT NULL,
+    originalTitle TEXT NOT NULL,
+    normalizedTitle TEXT NOT NULL,
+    brand TEXT,
+    model TEXT,
+    storageCapacity TEXT,
+    memoryCapacity TEXT,
+    currency TEXT NOT NULL DEFAULT 'BRL',
+    currentPrice REAL,
+    originalPrice REAL,
+    originalPriceText TEXT,
+    availability TEXT,
     priceText TEXT,
     price REAL,
     url TEXT,
     source TEXT DEFAULT 'normalized',
-    confidence REAL,     -- future: scoring for AI enrichment
+    confidence REAL,     -- scoring for AI enrichment
     createdAt TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (searchId) REFERENCES searches(id)
   );
@@ -201,8 +211,16 @@ class SQLiteRepository extends Repository {
    */
   async persistNormalizedProducts(searchId, products) {
     const insert = this.db.prepare(`
-      INSERT INTO normalized_products (id, searchId, provider, title, priceText, price, url, confidence)
-      VALUES (@id, @searchId, @provider, @title, @priceText, @price, @url, @confidence)
+      INSERT INTO normalized_products
+        (id, searchId, provider, originalTitle, normalizedTitle,
+         brand, model, storageCapacity, memoryCapacity,
+         currency, currentPrice, originalPrice, originalPriceText,
+         availability, priceText, price, url, confidence)
+      VALUES
+        (@id, @searchId, @provider, @originalTitle, @normalizedTitle,
+         @brand, @model, @storageCapacity, @memoryCapacity,
+         @currency, @currentPrice, @originalPrice, @originalPriceText,
+         @availability, @priceText, @price, @url, @confidence)
     `);
 
     this.db.transaction(() => {
@@ -211,7 +229,17 @@ class SQLiteRepository extends Repository {
           id: randomUUID(),
           searchId,
           provider: p.provider || null,
-          title: p.title,
+          originalTitle: p.originalTitle || p.title || null,
+          normalizedTitle: p.normalizedTitle || p.title || null,
+          brand: p.brand || null,
+          model: p.model || null,
+          storageCapacity: p.storageCapacity || null,
+          memoryCapacity: p.memoryCapacity || null,
+          currency: p.currency || 'BRL',
+          currentPrice: typeof p.currentPrice === 'number' ? p.currentPrice : this._parsePrice(p.price),
+          originalPrice: typeof p.originalPrice === 'number' ? p.originalPrice : this._parsePrice(p.price),
+          originalPriceText: p.originalPriceText || p.priceText || null,
+          availability: p.availability || null,
           priceText: p.priceText || null,
           price: typeof p.price === 'number' ? p.price : this._parsePrice(p.price),
           url: p.url,

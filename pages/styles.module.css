@@ -284,6 +284,16 @@
   color: var(--color-warning, #f59e0b);
 }
 
+.badgeNeutral {
+  font-weight: 500;
+  color: #64748b;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+}
+
 /* --- Error Badge --- */
 .errorBadge {
   margin: 1rem 1.5rem;

@@ -75,6 +75,7 @@ export default async function handler(req, res) {
         searchId: result.searchId,
         url: result.url,
         products: result.products,
+        normalizedProducts: result.normalizedProducts,
         pagination: result.pagination,
         executionTime: result.executionTime,
         productCount: result.productCount,

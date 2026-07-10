@@ -80,7 +80,17 @@ Prefer built-in Node.js APIs over third-party libraries when equivalents exist (
 - **filterValidProducts()**: Filters out navigation items (Ver todas, etc.)
 - **detectPagination()**: Extracts page links and calculates current/next page
 
-### 4. Error Layer
+### 4. Normalization Layer (Milestone 4)
+- **normalizeTitle()**: Strips markers, promotional prefixes, generates
+- **extractBrand()**: Uses 40+ brand list for Brazilian retailers
+- **extractModel()**: Regex patterns for GPU, CPU, and generic models
+- **extractStorageCapacity()**: Detects TB/GB for SSD/HDD products
+- **extractMemoryCapacity()**: Extracts RAM capacity with GB/MB
+- **normalizePrice()**: Converts to numeric BRL, separates current/original
+- **detectAvailability()**: Portuguese + English availability keywords
+- **All exports are reusable pure functions**, independent of providers
+
+### 5. Error Layer
 - Custom error hierarchy
 - Error codes for machine parsing
 - Graceful degradation (null prices, filtered products)
@@ -91,6 +101,7 @@ Prefer built-in Node.js APIs over third-party libraries when equivalents exist (
 src/
   providers/
     ProductProvider.js        # Base class (interface)
+    normalizer.js             # Normalization layer (Milestone 4)
     pichau/
       PichauProvider.js       # Pichau implementation
       (no sub-modules needed)
@@ -99,6 +110,8 @@ src/
       KabumProvider.js        # Kabum implementation
       (no sub-modules needed)
       exports: {KabumProvider, shutdown, KabumProviderError, ...}
+    mercadolivre/
+      MercadoLivreProvider.js # MercadoLivre implementation
 ```
 
 ## Key Design Decisions

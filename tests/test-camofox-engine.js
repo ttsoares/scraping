@@ -41,11 +41,11 @@ async function testContract() {
 
 async function testFactory() {
   console.log('\n[testFactory]');
-  const pw = BrowserFactory.create('playwright');
-  const cf = BrowserFactory.create('camofox');
+  const pw = BrowserFactory.create({ engine: 'playwright' });
+  const cf = BrowserFactory.create({ engine: 'camofox' });
   const def = BrowserFactory.create();
-  assertEqual(pw.engineName, 'playwright', 'create(playwright)');
-  assertEqual(cf.engineName, 'camofox', 'create(camofox)');
+  assertEqual(pw.engineName, 'playwright', 'create({ engine: "playwright" })');
+  assertEqual(cf.engineName, 'camofox', 'create({ engine: "camofox" })');
   assertEqual(def.engineName, 'playwright', 'create() defaults');
   assert(pw instanceof PlaywrightEngine, 'pw instanceof PlaywrightEngine');
   assert(cf instanceof CamofoxEngine, 'cf instanceof CamofoxEngine');

@@ -16,6 +16,7 @@
 const { BrowserEngine } = require('./BrowserEngine');
 const { BrowserSession } = require('./BrowserSession');
 const { PlaywrightEngine } = require('./PlaywrightEngine');
+const { CamofoxEngine } = require('./CamofoxEngine');
 const { BrowserFactory } = require('./BrowserFactory');
 const { FailureClassifier, FailureCategory } = require('./FailureClassifier');
 const { RetryPolicy } = require('./RetryPolicy');
@@ -25,6 +26,7 @@ module.exports = {
   BrowserEngine,
   BrowserSession,
   PlaywrightEngine,
+  CamofoxEngine,
   BrowserFactory,
   FailureClassifier,
   FailureCategory,

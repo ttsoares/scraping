@@ -253,7 +253,7 @@ function testBrowserFactory() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Group 5: BrowserSession
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function testBrowserSession() {
+async function testBrowserSession() {
   console.log('\n── [5] BrowserSession ──');
 
   test('url() returns empty string when page is null', () => {
@@ -276,6 +276,63 @@ function testBrowserSession() {
     });
     assert.strictEqual(session.url(), 'https://test.com');
   });
+
+  await testAsync('close() closes open pages with isClosed()', async () => {
+    let closeCalled = false;
+    const session = new BrowserSession({
+      page: {
+        isClosed: () => false,
+        close: async () => { closeCalled = true; },
+      },
+      context: {},
+      browser: {},
+      engineName: 'test',
+    });
+
+    await session.close();
+
+    assert.strictEqual(closeCalled, true);
+    assert.strictEqual(session.page, null);
+    assert.strictEqual(session.context, null);
+    assert.strictEqual(session.browser, null);
+  });
+
+  await testAsync('close() skips pages already closed by isClosed()', async () => {
+    let closeCalled = false;
+    const session = new BrowserSession({
+      page: {
+        isClosed: () => true,
+        close: async () => { closeCalled = true; },
+      },
+      context: {},
+      browser: {},
+      engineName: 'test',
+    });
+
+    await session.close();
+
+    assert.strictEqual(closeCalled, false);
+    assert.strictEqual(session.page, null);
+  });
+
+  await testAsync('close() supports legacy closed property', async () => {
+    let closeCalled = false;
+    const session = new BrowserSession({
+      page: {
+        closed: false,
+        close: async () => { closeCalled = true; },
+      },
+      context: {},
+      browser: {},
+      engineName: 'test',
+    });
+
+    await session.close();
+
+    assert.strictEqual(closeCalled, true);
+    assert.strictEqual(session.page, null);
+  });
+
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -425,7 +482,7 @@ async function main() {
   testFailureClassifier();
   testRetryPolicy();
   testBrowserFactory();
-  testBrowserSession();
+  await testBrowserSession();
   await testBrowserExecutor();
   testNormalizerIntegration();
 

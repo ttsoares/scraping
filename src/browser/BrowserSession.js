@@ -34,7 +34,10 @@ class BrowserSession {
    */
   async close() {
     try {
-      if (this.page && !this.page.isClosed && !this.page?.closed) {
+      const isClosed = typeof this.page?.isClosed === 'function'
+        ? this.page.isClosed()
+        : Boolean(this.page?.closed);
+      if (this.page && !isClosed) {
         await this.page.close();
       }
     } catch { /* ignore */ }

@@ -16,6 +16,12 @@ chromium.use(stealthPlugin);
 let _browser = null;
 let _context = null;
 
+const isPageClosed = (page) => {
+  if (!page) return true;
+  if (typeof page.isClosed === 'function') return page.isClosed();
+  return Boolean(page.closed);
+};
+
 /**
  * @implements {BrowserEngine}
  */
@@ -46,23 +52,7 @@ class PlaywrightEngine extends BrowserEngine {
    */
   async launch(options = {}) {
     await this._ensureBrowser();
-
-    // If existing page is closed or context is defunct, create new page
-    let existingPage = null;
-    try {
-      if (_context && _context.pages) {
-        const pages = _context.pages();
-        if (pages.length > 0) {
-          existingPage = pages[0];
-        }
-      }
-    } catch { /* ignore */ }
-
-    const page = existingPage;
-    if (!page) {
-      await this._ensureBrowser();
-      page = await _context.newPage();
-    }
+    const page = await _context.newPage();
 
     const session = new BrowserSession({
       engineName: this.engineName,
@@ -83,7 +73,7 @@ class PlaywrightEngine extends BrowserEngine {
     try {
       const pages = _context?.pages?.() || [];
       for (const page of pages) {
-        if (page && !page.isClosed()) {
+        if (!isPageClosed(page)) {
           await page.close();
         }
       }
@@ -98,11 +88,6 @@ class PlaywrightEngine extends BrowserEngine {
       _browser = null;
     }
     _context = null;
-    // Reset session state for reuse
-    if (_browser) {
-      browser = null;
-      context = null;
-    }
   }
 
   /**
@@ -110,12 +95,9 @@ class PlaywrightEngine extends BrowserEngine {
    * @returns {Promise<boolean>}
    */
   async isHealthy() {
-    if (!_browser) return false;
+    if (!_browser || !_context) return false;
     try {
-      const pages = _context?.pages?.() || [];
-      if (pages.length === 0) return false;
-      const page = pages[0];
-      if (page?.isClosed?.()) return false;
+      _context.pages?.();
       return true;
     } catch {
       return false;
@@ -130,18 +112,12 @@ class PlaywrightEngine extends BrowserEngine {
    */
   async execute(fn) {
     await this._ensureBrowser();
-    const pages = _context?.pages?.() || [];
-    const page = pages[0] || (await _context.newPage());
-    if (!page.isClosed && !page?.closed) {
-      return await fn(page);
-        }
-    await this._ensureBrowser();
-    const newPage = await _context.newPage();
+    const page = await _context.newPage();
     try {
-      return await fn(newPage);
+      return await fn(page);
     } finally {
-      if (newPage && !newPage.isClosed && !newPage?.closed) {
-        await newPage.close();
+      if (!isPageClosed(page)) {
+        await page.close();
       }
     }
   }
@@ -161,14 +137,8 @@ class PlaywrightEngine extends BrowserEngine {
   async getPage() {
     await this._ensureBrowser();
     const pages = _context?.pages?.() || [];
-    if (pages.length > 0) {
-      const page = pages[0];
-      if (page && !page.isClosed && !page?.closed) {
-        return page;
-      }
-    }
-    const page = await _context.newPage();
-    return page;
+    const page = pages.find(candidate => !isPageClosed(candidate));
+    return page || await _context.newPage();
   }
 }
 

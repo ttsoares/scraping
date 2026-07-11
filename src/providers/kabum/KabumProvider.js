@@ -1,43 +1,15 @@
-const {chromium} = require('playwright-extra');
-const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
-const {parsePrice, normalizeProducts} = require('../shared');
-
-chromium.use(stealthPlugin);
+const {normalizeProducts} = require('../shared');
+const {BrowserExecutor, BrowserFactory} = require('../../browser');
 
 const HOME_URL = 'https://www.kabum.com.br/';
 const SOURCE = 'kabum';
 
-let browser = null;
-let context = null;
-let page = null;
+const createExecutor = () => new BrowserExecutor();
 
-// --- Browser lifecycle ---
-
-const healthCheck = async () => {
-  if (!browser) return false;
-  if (!page || page.isClosed()) return false;
-  const state = await page.evaluate(() => ({
-    hasBody: !!document.body,
-    location: window.location.href
-  })).catch(() => ({hasBody: false, location: ''}));
-  return state.hasBody && state.location.length > 0;
-};
-
-const ensurePage = async () => {
-  if (page && !page.isClosed() && await healthCheck()) return page;
-  if (!browser) browser = await chromium.launch({headless: true});
-  if (!context) context = await browser.newContext();
-  page = await context.newPage();
-  return page;
-};
-
+// Compatibility hook: cleanup is delegated to the browser abstraction.
 const shutdown = async () => {
-  try {
-    if (page && !page.isClosed()) await page.close();
-    if (context) await context.close();
-    if (browser) await browser.close();
-  } finally { page = null; context = null; browser = null; }
+  await BrowserFactory.create().close();
 };
 
 // --- Helpers ---
@@ -75,93 +47,101 @@ const detectPagination = async currentPage => {
 // --- Main Provider ---
 
 class KabumProvider extends ProductProvider {
+  constructor(options = {}) {
+    super();
+    this.executor = options.executor || createExecutor();
+  }
+
   async search(query, options = {}) {
     if (!query || typeof query !== 'string') {
       throw new Error('query must be a non-empty string');
     }
 
-    const currentPage = await ensurePage();
-    await currentPage.goto(HOME_URL, {waitUntil: 'domcontentloaded'});
+    return this.executor.execute(async (session) => {
+      const currentPage = session.page;
 
-    // Locate search input, bypass overlays with force: true
-    const searchInput = currentPage.locator('input[name="query"]');
-    await searchInput.first().waitFor({state: 'visible', timeout: 30000});
-    await searchInput.first().click({force: true});
-    await searchInput.first().fill(query);
-    await currentPage.keyboard.press('Enter');
+      await currentPage.goto(HOME_URL, {waitUntil: 'domcontentloaded'});
 
-    // Wait for SPA to re-render
-    const waitForResults = async () =>
-      currentPage.waitForSelector('a[href*="/produto/"]', {timeout: 30000});
+      // Locate search input, bypass overlays with force: true
+      const searchInput = currentPage.locator('input[name="query"]');
+      await searchInput.first().waitFor({state: 'visible', timeout: 30000});
+      await searchInput.first().click({force: true});
+      await searchInput.first().fill(query);
+      await currentPage.keyboard.press('Enter');
 
-    await currentPage.waitForURL(url => url.toString().includes('/busca/'), {timeout: 30000});
-    await waitForResults();
+      // Wait for SPA to re-render
+      const waitForResults = async () =>
+        currentPage.waitForSelector('a[href*="/produto/"]', {timeout: 30000});
 
-    // Navigate to pagination if pageNum specified in options
-    if (options.pageNum && options.pageNum > 1) {
-      const currentUrl = new URL(currentPage.url());
-      currentUrl.searchParams.set('page_number', String(options.pageNum));
-      await currentPage.goto(currentUrl.toString(), {waitUntil: 'domcontentloaded', timeout: 30000});
+      await currentPage.waitForURL(url => url.toString().includes('/busca/'), {timeout: 30000});
       await waitForResults();
-      await currentPage.waitForTimeout(1500);
-    }
 
-    const products = await currentPage.$$eval('a[href*="/produto/"]', links => {
-      const seen = new Set();
-      const results = [];
-
-      for (const link of links) {
-        const href = link.getAttribute('href');
-        if (!href || seen.has(href)) continue;
-        const allText = (link.textContent || '').split('\n')
-          .map(t => t.trim()).filter(Boolean);
-        const combinedText = allText.join(' ');
-        if (!combinedText.includes('R$')) continue;
-
-        const prePriceText = combinedText.split('R$')[0] || combinedText;
-        let cleanedTitle = prePriceText
-          .replace(/Selo:\s*[\s\S]*?Produto\s+Patrocinado/i, '')
-          .replace(/Selo:\s*\S+(?:\s+\S+)?/i, '')
-          .replace(/Produto\s+Patrocinado/i, '')
-          .replace(/Avaliação\s*[\d.,]+\s*de\s*[\d.,]+/i, '')
-          .replace(/Frete\s+gr[aá]tis\*?/i, '')
-          .replace(/\s+/g, ' ')
-          .trim()
-          .replace(/^[^A-Za-zÀ-ÿ0-9]+/g, '');
-
-        const fallbackTitle = allText.find(t =>
-          !t.includes('R$') && !t.includes('desconto')
-          && !t.includes('pix') && !t.includes('frete')
-          && t.length > 10
-        ) || allText[0] || null;
-
-        const title = cleanedTitle.length > 10 ? cleanedTitle : fallbackTitle;
-
-        const priceMatches = [];
-        const priceRegex = /R\$\s*[\d.]+,?\d*/g;
-        for (const match of combinedText.matchAll(priceRegex)) {
-          const index = match.index ?? 0;
-          const prefix = combinedText.slice(Math.max(0, index - 10), index).toLowerCase();
-          if (prefix.includes('x de')) continue;
-          priceMatches.push(match[0]);
-        }
-        const priceText = priceMatches.length ? priceMatches[priceMatches.length - 1] : null;
-
-        results.push({title, priceText, url: href});
-        seen.add(href);
-        if (results.length >= 80) break;
+      // Navigate to pagination if pageNum specified in options
+      if (options.pageNum && options.pageNum > 1) {
+        const currentUrl = new URL(currentPage.url());
+        currentUrl.searchParams.set('page_number', String(options.pageNum));
+        await currentPage.goto(currentUrl.toString(), {waitUntil: 'domcontentloaded', timeout: 30000});
+        await waitForResults();
+        await currentPage.waitForTimeout(1500);
       }
 
-      return results;
-    });
+      const products = await currentPage.$$eval('a[href*="/produto/"]', links => {
+        const seen = new Set();
+        const results = [];
 
-    return {
-      query: query,
-      url: currentPage.url(),
-      products: normalizeProducts(products, {HOME_URL, SOURCE}),
-      pagination: await detectPagination(currentPage),
-      source: SOURCE
-    };
+        for (const link of links) {
+          const href = link.getAttribute('href');
+          if (!href || seen.has(href)) continue;
+          const allText = (link.textContent || '').split('\n')
+            .map(t => t.trim()).filter(Boolean);
+          const combinedText = allText.join(' ');
+          if (!combinedText.includes('R$')) continue;
+
+          const prePriceText = combinedText.split('R$')[0] || combinedText;
+          let cleanedTitle = prePriceText
+            .replace(/Selo:\s*[\s\S]*?Produto\s+Patrocinado/i, '')
+            .replace(/Selo:\s*\S+(?:\s+\S+)?/i, '')
+            .replace(/Produto\s+Patrocinado/i, '')
+            .replace(/Avaliação\s*[\d.,]+\s*de\s*[\d.,]+/i, '')
+            .replace(/Frete\s+gr[aá]tis\*?/i, '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .replace(/^[^A-Za-zÀ-ÿ0-9]+/g, '');
+
+          const fallbackTitle = allText.find(t =>
+            !t.includes('R$') && !t.includes('desconto')
+            && !t.includes('pix') && !t.includes('frete')
+            && t.length > 10
+          ) || allText[0] || null;
+
+          const title = cleanedTitle.length > 10 ? cleanedTitle : fallbackTitle;
+
+          const priceMatches = [];
+          const priceRegex = /R\$\s*[\d.]+,?\d*/g;
+          for (const match of combinedText.matchAll(priceRegex)) {
+            const index = match.index ?? 0;
+            const prefix = combinedText.slice(Math.max(0, index - 10), index).toLowerCase();
+            if (prefix.includes('x de')) continue;
+            priceMatches.push(match[0]);
+          }
+          const priceText = priceMatches.length ? priceMatches[priceMatches.length - 1] : null;
+
+          results.push({title, priceText, url: href});
+          seen.add(href);
+          if (results.length >= 80) break;
+        }
+
+        return results;
+      });
+
+      return {
+        query: query,
+        url: currentPage.url(),
+        products: normalizeProducts(products, {HOME_URL, SOURCE}),
+        pagination: await detectPagination(currentPage),
+        source: SOURCE
+      };
+    }, `${SOURCE}.search`);
   }
 }
 

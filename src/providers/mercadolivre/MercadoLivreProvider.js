@@ -1,43 +1,17 @@
-const {chromium} = require('playwright-extra');
-const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
-const {normalizeProducts, parsePrice, toSearchSlug} = require('../shared');
-
-chromium.use(stealthPlugin);
+const {normalizeProducts, toSearchSlug} = require('../shared');
+const {BrowserExecutor, BrowserFactory} = require('../../browser');
 
 const HOME_URL = 'https://www.mercadolivre.com.br/';
 const SEARCH_BASE = 'https://lista.mercadolivre.com.br/';
 const SOURCE = 'mercadolivre';
 const RESULTS_PER_PAGE = 48;
 
-let browser = null;
-let context = null;
-let page = null;
+const createExecutor = () => new BrowserExecutor();
 
-const healthCheck = async () => {
-  if (!browser) return false;
-  if (!page || page.isClosed()) return false;
-  const state = await page.evaluate(() => ({
-    hasBody: !!document.body,
-    location: window.location.href
-  })).catch(() => ({hasBody: false, location: ''}));
-  return state.hasBody && state.location.length > 0;
-};
-
-const ensurePage = async () => {
-  if (page && !page.isClosed() && await healthCheck()) return page;
-  if (!browser) browser = await chromium.launch({headless: true});
-  if (!context) context = await browser.newContext();
-  page = await context.newPage();
-  return page;
-};
-
+// Compatibility hook: cleanup is delegated to the browser abstraction.
 const shutdown = async () => {
-  try {
-    if (page && !page.isClosed()) await page.close();
-    if (context) await context.close();
-    if (browser) await browser.close();
-  } finally { page = null; context = null; browser = null; }
+  await BrowserFactory.create().close();
 };
 
 // MercadoLivre-specific URL helpers (use shared toSearchSlug)
@@ -50,10 +24,6 @@ const buildPageUrl = (query, pageNum, resultsPerPage) => {
   const offset = (pageNum - 1) * rpp + 1;
   return `${buildUrl(query)}_Desde_${offset}_NoIndex_True`;
 };
-
-// MercadoLivre has its own parsePrice because prices may lack R$ prefix
-// but shared.parsePrice is still the entry point; MercadoLivre wraps it
-// with per-item logic if needed.
 
 const detectPagination = async currentPage => {
   const pagination = await currentPage.$$eval('.andes-pagination__button', buttons => {
@@ -84,67 +54,74 @@ const detectPagination = async currentPage => {
 };
 
 class MercadoLivreProvider extends ProductProvider {
+  constructor(options = {}) {
+    super();
+    this.executor = options.executor || createExecutor();
+  }
+
   async search(query, options = {}) {
     if (!query || typeof query !== 'string') {
       throw new Error('query must be a non-empty string');
     }
 
-    const currentPage = await ensurePage();
-    const targetUrl = buildPageUrl(query, options.pageNum);
+    return this.executor.execute(async (session) => {
+      const currentPage = session.page;
+      const targetUrl = buildPageUrl(query, options.pageNum);
 
-    await currentPage.goto(targetUrl, {waitUntil: 'domcontentloaded', timeout: 30000});
-    await currentPage.waitForSelector('li.ui-search-layout__item', {timeout: 30000});
-    await currentPage.waitForTimeout(1500);
+      await currentPage.goto(targetUrl, {waitUntil: 'domcontentloaded', timeout: 30000});
+      await currentPage.waitForSelector('li.ui-search-layout__item', {timeout: 30000});
+      await currentPage.waitForTimeout(1500);
 
-    const rawProducts = await currentPage.$$eval('li.ui-search-layout__item', items => {
-      const normalizeLink = (href) => {
-        if (!href) return null;
-        if (href.includes('publicidade.mercadolivre.com.br')) return null;
-        if (href.includes('mercadoclics')) return null;
-        if (href.includes('click')) return null;
-        return href.includes('mercadolivre.com.br') ? href : null;
+      const rawProducts = await currentPage.$$eval('li.ui-search-layout__item', items => {
+        const normalizeLink = (href) => {
+          if (!href) return null;
+          if (href.includes('publicidade.mercadolivre.com.br')) return null;
+          if (href.includes('mercadoclics')) return null;
+          if (href.includes('click')) return null;
+          return href.includes('mercadolivre.com.br') ? href : null;
+        };
+
+        const results = [];
+
+        for (const item of items) {
+          const isAd = !!item.querySelector('.poly-component__ads-promotions, .ui-search-item__ad');
+          if (isAd) continue;
+
+          const title = item.querySelector('h2, .ui-search-item__title, .poly-component__title')?.textContent?.trim();
+          const amount = item.querySelector('.poly-price__current [data-andes-money-amount], .ui-search-price__part [data-andes-money-amount]');
+          const priceText = amount?.textContent?.replace(/\s+/g, ' ').trim()
+            || item.querySelector('.ui-search-price, .poly-price__current')?.textContent?.replace(/\s+/g, ' ').trim()
+            || null;
+
+          const links = Array.from(item.querySelectorAll('a[href]')).map(anchor => anchor.getAttribute('href'));
+          const url = links.map(normalizeLink).find(Boolean);
+
+          if (!title || !url) continue;
+
+          results.push({title, priceText, url});
+        }
+
+        return results;
+      });
+
+      // Use shared normalizeProducts (deduplicates, resolves URLs, attaches source)
+      const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
+      const pagination = await detectPagination(currentPage);
+      const currentPageNumber = options.pageNum || pagination.currentPage || 1;
+
+      return {
+        query,
+        url: currentPage.url(),
+        products,
+        pagination: {
+          currentPage: currentPageNumber,
+          pages: pagination.pages,
+          nextPageUrl: pagination.hasNextPage ? buildPageUrl(query, currentPageNumber + 1) : null,
+          hasNextPage: pagination.hasNextPage
+        },
+        source: SOURCE
       };
-
-      const results = [];
-
-      for (const item of items) {
-        const isAd = !!item.querySelector('.poly-component__ads-promotions, .ui-search-item__ad');
-        if (isAd) continue;
-
-        const title = item.querySelector('h2, .ui-search-item__title, .poly-component__title')?.textContent?.trim();
-        const amount = item.querySelector('.poly-price__current [data-andes-money-amount], .ui-search-price__part [data-andes-money-amount]');
-        const priceText = amount?.textContent?.replace(/\s+/g, ' ').trim()
-          || item.querySelector('.ui-search-price, .poly-price__current')?.textContent?.replace(/\s+/g, ' ').trim()
-          || null;
-
-        const links = Array.from(item.querySelectorAll('a[href]')).map(anchor => anchor.getAttribute('href'));
-        const url = links.map(normalizeLink).find(Boolean);
-
-        if (!title || !url) continue;
-
-        results.push({title, priceText, url});
-      }
-
-      return results;
-    });
-
-    // Use shared normalizeProducts (deduplicates, resolves URLs, attaches source)
-    const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
-    const pagination = await detectPagination(currentPage);
-    const currentPageNumber = options.pageNum || pagination.currentPage || 1;
-
-    return {
-      query,
-      url: currentPage.url(),
-      products,
-      pagination: {
-        currentPage: currentPageNumber,
-        pages: pagination.pages,
-        nextPageUrl: pagination.hasNextPage ? buildPageUrl(query, currentPageNumber + 1) : null,
-        hasNextPage: pagination.hasNextPage
-      },
-      source: SOURCE
-    };
+    }, `${SOURCE}.search`);
   }
 }
 

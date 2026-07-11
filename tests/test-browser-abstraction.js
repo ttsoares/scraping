@@ -47,6 +47,23 @@ function test(name, fn) {
   }
 }
 
+async function testAsync(name, fn) {
+  const start = Date.now();
+  try {
+    await fn();
+    const ms = Date.now() - start;
+    passed++;
+    results.push({ name, status: 'PASS', ms });
+    console.log(`  ${name.padEnd(50)} PASS ${ms}ms`);
+  } catch (err) {
+    const ms = Date.now() - start;
+    failed++;
+    results.push({ name, status: 'FAIL', ms, error: err.message });
+    console.log(`  ${name.padEnd(50)} FAIL ${err.message} (${ms}ms)`);
+  }
+}
+
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Group 1: Module imports
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -195,17 +212,22 @@ function testRetryPolicy() {
     assert.ok(d10 <= rp.maxDelayMs, `delay(10) ${d10} <= maxDelayMs ${rp.maxDelayMs}`);
   });
 
-  test('shouldRetry is true within maxRetries', () => {
-    assert.strictEqual(rp.shouldRetry(new Error('timeout'), 0), true);
-    assert.strictEqual(rp.shouldRetry(new Error('timeout'), 1), true);
-    assert.strictEqual(rp.shouldRetry(new Error('timeout'), 2), true);
+  test('shouldRetry accepts classified failure reasons only', () => {
+    assert.strictEqual(rp.shouldRetry(FailureCategory.RETRIABLE, 0), true);
+    assert.strictEqual(rp.shouldRetry(FailureCategory.TRANSIENT, 0), true);
+    assert.strictEqual(rp.shouldRetry(FailureCategory.PERMANENT, 0), false);
+    assert.strictEqual(rp.shouldRetry(FailureCategory.UNKNOWN, 0), false);
   });
 
-  test('shouldRetry delegates to classifier after maxRetries', () => {
-    const rp2 = new RetryPolicy({ maxRetries: 1 });
-    assert.strictEqual(rp2.shouldRetry(new Error('timeout'), 5), true);
-    const rp3 = new RetryPolicy({ maxRetries: 1 });
-    assert.strictEqual(rp3.shouldRetry(new TypeError('bad arg'), 5), false);
+  test('shouldRetry stops at maxRetries', () => {
+    const rp2 = new RetryPolicy({ maxRetries: 2 });
+    assert.strictEqual(rp2.shouldRetry(FailureCategory.RETRIABLE, 0), true);
+    assert.strictEqual(rp2.shouldRetry(FailureCategory.RETRIABLE, 1), true);
+    assert.strictEqual(rp2.shouldRetry(FailureCategory.RETRIABLE, 2), false);
+  });
+
+  test('RetryPolicy has no classifier dependency', () => {
+    assert.strictEqual('classifier' in rp, false);
   });
 }
 
@@ -257,10 +279,67 @@ function testBrowserSession() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// Group 6: Normalizer integration
+// Group 6: BrowserExecutor
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function testBrowserExecutor() {
+  console.log('\n── [6] BrowserExecutor ──');
+
+  await testAsync('passes classified failure reason to RetryPolicy', async () => {
+    const rawError = new Error('Navigation timeout');
+    const retryCalls = [];
+    let classifiedError = null;
+    let launchCount = 0;
+    let sessionClosed = false;
+    let engineClosed = false;
+
+    const session = {
+      close: async () => { sessionClosed = true; },
+    };
+    const engine = {
+      isHealthy: async () => true,
+      launch: async () => {
+        launchCount++;
+        return session;
+      },
+      close: async () => { engineClosed = true; },
+    };
+    const executor = new BrowserExecutor({
+      factory: { create: async () => engine },
+      classifier: {
+        classify: (error) => {
+          classifiedError = error;
+          return FailureCategory.RETRIABLE;
+        },
+      },
+      retryPolicy: {
+        maxRetries: 1,
+        shouldRetry: (failureReason, retryAttempt) => {
+          retryCalls.push([failureReason, retryAttempt]);
+          return false;
+        },
+        delay: () => 0,
+      },
+    });
+
+    await assert.rejects(
+      () => executor.execute(async () => { throw rawError; }),
+      (error) => error === rawError
+    );
+
+    assert.strictEqual(classifiedError, rawError);
+    assert.deepStrictEqual(retryCalls, [[FailureCategory.RETRIABLE, 0]]);
+    assert.strictEqual(retryCalls[0][0] instanceof Error, false);
+    assert.strictEqual(launchCount, 1);
+    assert.strictEqual(sessionClosed, true);
+    assert.strictEqual(engineClosed, true);
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Group 7: Normalizer integration
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function testNormalizerIntegration() {
-  console.log('\n── [6] Normalizer Integration ──');
+  console.log('\n── [7] Normalizer Integration ──');
 
   test('normalizeProducts returns array', () => {
     const products = normalizeProducts([], 'pichau');
@@ -347,6 +426,7 @@ async function main() {
   testRetryPolicy();
   testBrowserFactory();
   testBrowserSession();
+  await testBrowserExecutor();
   testNormalizerIntegration();
 
   const total = passed + failed;

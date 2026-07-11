@@ -1,11 +1,12 @@
 /**
  * RetryPolicy — generic retry strategy, browser-independent.
  *
- * Decides whether to retry based on a FailureClassifier and
- * the current retry count. Uses exponential backoff with jitter.
+ * Decides whether to retry from a pre-classified failure reason and
+ * the current retry count. Raw exception interpretation belongs only
+ * in FailureClassifier.
  */
 
-const { FailureClassifier, FailureCategory } = require('./FailureClassifier');
+const { FailureCategory } = require('./FailureClassifier');
 
 class RetryPolicy {
   /**
@@ -13,26 +14,26 @@ class RetryPolicy {
    * @param {number} [options.maxRetries=3] - Max retries per query.
    * @param {number} [options.baseDelayMs=500] - Base delay in ms.
    * @param {number} [options.maxDelayMs=5000] - Max delay in ms.
-   * @param {FailureClassifier} [options.classifier] - Classifier instance.
    */
   constructor(options = {}) {
     this.maxRetries = options.maxRetries ?? 3;
     this.baseDelayMs = options.baseDelayMs ?? 500;
     this.maxDelayMs = options.maxDelayMs ?? 5000;
-    this.classifier = options.classifier ?? new FailureClassifier();
   }
 
   /**
-   * Check if an error is retriable.
-   * @param {Error|any} error
+   * Check if a classified failure reason is retriable.
+   * @param {string} failureReason - One of FailureCategory values.
    * @param {number} retryAttempt - Current retry attempt (0-indexed).
    * @returns {boolean}
    */
-  shouldRetry(error, retryAttempt) {
+  shouldRetry(failureReason, retryAttempt) {
     if (retryAttempt >= this.maxRetries) {
-      return this.classifier.shouldRetry(error);
+      return false;
     }
-    return true;
+
+    return failureReason === FailureCategory.RETRIABLE ||
+           failureReason === FailureCategory.TRANSIENT;
   }
 
   /**

@@ -3,7 +3,7 @@
  *   launch → execute → (retry if needed) → close.
  *
  * Combines RetryPolicy and FailureClassifier to provide robust
- * execution for any async function that needs a browser page.
+ * execution for any async function that needs a browser session.
  */
 
 const { BrowserFactory } = require('./BrowserFactory');
@@ -24,50 +24,67 @@ class BrowserExecutor {
    * Execute an operation with automatic retry and cleanup.
    *
    * @template T
-   * @param {function(any): Promise<T>} operation - Receives the page handle.
+   * @param {function(any): Promise<T>} operation - Receives the browser session.
    * @param {string} [operationName='operation'] - Name for logging.
    * @returns {Promise<T>}
    */
   async execute(operation, operationName = 'operation') {
     let engine = null;
-    let page = null;
+    let session = null;
     let lastError = null;
 
     for (let attempt = 0; attempt <= this.retryPolicy.maxRetries; attempt++) {
       try {
-        // Launch or reuse engine
         if (!engine || (await engine.isHealthy()) === false) {
+          if (engine) {
+            await this._safeClose(engine);
+          }
           engine = await this.factory.create();
-          await engine.launch();
         }
 
-        // Get page
-        page = await engine.getPage();
-        if (!page) throw new Error('No page available');
+        session = await engine.launch();
+        if (!session) throw new Error('No session available');
 
-        // Execute operation
-        const result = await operation(page);
+        // Execute operation with session
+        const result = await operation(session);
 
-        // Success - close page but keep engine
-        if (page && !page.isClosed && !page?.closed) {
-          await page.close();
+        // Success - clean up session but keep engine for potential reuse
+        if (session && session.close) {
+          try {
+            await session.close();
+          } catch (closeError) {
+            // Log but don't fail the operation on cleanup errors
+            console.warn(`Session close error: ${closeError.message}`);
+          }
         }
 
         return result;
       } catch (error) {
         lastError = error;
-        const shouldRetry = this.retryPolicy.shouldRetry(error, attempt);
+        const failureReason = this.classifier.classify(error);
+        const shouldRetry = this.retryPolicy.shouldRetry(failureReason, attempt);
+
+        // Clean up session regardless of retry decision
+        if (session && session.close) {
+          try {
+            await session.close();
+          } catch (closeError) {
+            console.warn(`Session close error on retry: ${closeError.message}`);
+          }
+        }
+        session = null;  // Reset for next attempt
 
         if (!shouldRetry || attempt >= this.retryPolicy.maxRetries) {
-          // Close on final attempt or non-retriable
-          await this._safeClose(engine);
+          // Close engine on final failure to clean up resources
+          if (engine) {
+            try {
+              await this._safeClose(engine);
+            } catch (closeError) {
+              console.warn(`Engine close error on failure: ${closeError.message}`);
+            }
+          }
           throw error;
         }
-
-        // Close and recreate engine for retry
-        await this._safeClose(engine);
-        engine = null;
-        page = null;
 
         if (shouldRetry) {
           const delay = this.retryPolicy.delay(attempt);
@@ -76,7 +93,7 @@ class BrowserExecutor {
       }
     }
 
-    // Exhausted retries
+    // Exhausted retries - should not reach here due to above return in catch
     throw lastError;
   }
 
@@ -92,28 +109,26 @@ class BrowserExecutor {
 
     try {
       engine = await this.factory.create();
-      await engine.launch();
-      session = await engine.launch(); // get existing session
+      session = await engine.launch();
 
       const result = await operation(session);
 
-      if (session) await session.close();
       return result;
     } catch (error) {
-      if (session) await session.close();
       throw error;
     } finally {
-      await this._safeClose(engine);
-    }
-  }
-
-  /**
-   * Safe close for any page / engine state.
-   * @param {any} page
-   */
-  async _closePage(page) {
-    if (page && !page.isClosed && !page?.closed) {
-      try { await page.close(); } catch { /* ignore */ }
+      // Clean up session
+      if (session && session.close) {
+        try {
+          await session.close();
+        } catch (closeError) {
+          console.warn(`Session close error in executeWithSession: ${closeError.message}`);
+        }
+      }
+      // Close engine at end
+      if (engine) {
+        await this._safeClose(engine);
+      }
     }
   }
 
@@ -123,7 +138,11 @@ class BrowserExecutor {
    */
   async _safeClose(engine) {
     if (engine) {
-      try { await engine.close(); } catch { /* ignore */ }
+      try {
+        await engine.close();
+      } catch (error) {
+        console.warn(`Error closing engine: ${error.message}`);
+      }
     }
   }
 
@@ -131,7 +150,7 @@ class BrowserExecutor {
    * Sleep helper, allows override for testing.
    * @param {number} ms
    */
-  _sleep(ms) {
+  async _sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

@@ -4,11 +4,16 @@
  * It wraps an existing provider's search() call, stores the result
  * in the backing Repository, and enriches the response with
  * persistence metadata (searchId, persistedProductCount, etc.).
+ *
+ * The service optionally uses the BrowserExecutor from the browser
+ * abstraction layer to manage the browser lifecycle during provider
+ * calls.
  */
 
 const { randomUUID } = require('crypto');
 const { SQLiteRepository } = require('../repository/SQLiteRepository');
 const { normalizeProducts } = require('../providers/normalizer');
+const { BrowserExecutor } = require('../browser');
 
 class SearchService {
   /**
@@ -16,11 +21,16 @@ class SearchService {
    * @param {string} [options.repositoryPath] - Path to the SQLite DB.
    * @param {boolean} [options.inMemory=false] - Use in-memory DB.
    * @param {string} [options.repository] - Which repository to use ('sqlite' | 'memory').
+   * @param {BrowserExecutor} [options.browserExecutor] - Optional BrowserExecutor.
    */
   constructor(options = {}) {
     this.options = { ...options };
     this.repository = null;
     this._resolved = false;
+    this.browserExecutor = options.browserExecutor || new BrowserExecutor({
+      maxRetries: 2,
+      baseDelayMs: 300,
+    });
   }
 
   static createSearchId() {
@@ -64,7 +74,6 @@ class SearchService {
     });
   }
 
-  /**
    * Run a full search pipeline.
    * @param {Function} providerFn - e.g. provider.search('query', { pageNum })
    * @param {string} query - Search query.
@@ -80,10 +89,14 @@ class SearchService {
     let result = null;
     let products = [];
     let searchPersisted = false;
+    let browserUsed = false;
 
     try {
-      // 1. Call the provider's search
-      result = await providerFn(query, options);
+      // 1. Call the provider's search (via BrowserExecutor if available)
+      const executeProviderFn = (page) => providerFn(query, options);
+      result = await this.browserExecutor.execute(executeProviderFn, `${providerName}.search`);
+      browserUsed = true;
+
       products = (result.products || []).slice().map((product) => ({
         ...product,
         provider: product.provider || product.source || providerName,
@@ -106,6 +119,7 @@ class SearchService {
         executionTime,
         rawJSON: result.rawResponse ? JSON.stringify(result.rawResponse) : null,
         pagination: result.pagination ? JSON.stringify(result.pagination) : null,
+        browserEngine: browserUsed ? 'playwright' : null,
       });
       searchPersisted = true;
 
@@ -116,12 +130,15 @@ class SearchService {
       result.searchId = searchId;
       result.persisted = products.length;
 
+      const executionTimeEnd = Date.now() - startTime;
+
       return {
         ...result,
         searchId,
         provider: providerName,
         query,
         url: result.url,
+        browserEngine: browserUsed ? 'playwright' : null,
         // Raw products (as returned by provider)
         products: products.map((p) => ({
           title: p.title,
@@ -148,7 +165,7 @@ class SearchService {
           provider: np.provider,
         })),
         pagination: result.pagination,
-        executionTime,
+        executionTime: executionTimeEnd,
         productCount: products.length,
         persistence: { searchId, persistedProducts: products.length },
       };
@@ -166,6 +183,7 @@ class SearchService {
           executionTime,
           rawJSON: result?.rawResponse ? JSON.stringify(result.rawResponse) : null,
           pagination: result?.pagination ? JSON.stringify(result.pagination) : null,
+          browserEngine: browserUsed ? 'playwright' : null,
         });
         searchPersisted = true;
       }

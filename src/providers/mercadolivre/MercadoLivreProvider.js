@@ -7,7 +7,7 @@ const SEARCH_BASE = 'https://lista.mercadolivre.com.br/';
 const SOURCE = 'mercadolivre';
 const RESULTS_PER_PAGE = 48;
 
-const createExecutor = () => new BrowserExecutor();
+const createExecutor = (executorOpts = {}) => new BrowserExecutor(executorOpts);
 
 // Compatibility hook: cleanup is delegated to the browser abstraction.
 const shutdown = async () => {
@@ -56,7 +56,8 @@ const detectPagination = async currentPage => {
 class MercadoLivreProvider extends ProductProvider {
   constructor(options = {}) {
     super();
-    this.executor = options.executor || createExecutor();
+    this.engine = options.engine || null;
+    this.executor = options.executor || createExecutor({ engine: this.engine });
   }
 
   async search(query, options = {}) {
@@ -64,7 +65,12 @@ class MercadoLivreProvider extends ProductProvider {
       throw new Error('query must be a non-empty string');
     }
 
-    return this.executor.execute(async (session) => {
+    const engine = options.engine || this.engine;
+    const executor = options.engine !== this.engine
+      ? new BrowserExecutor({ engine })
+      : this.executor;
+
+    return executor.execute(async (session) => {
       const currentPage = session.page;
       const targetUrl = buildPageUrl(query, options.pageNum);
 

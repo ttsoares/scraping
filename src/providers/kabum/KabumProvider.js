@@ -5,7 +5,7 @@ const {BrowserExecutor, BrowserFactory} = require('../../browser');
 const HOME_URL = 'https://www.kabum.com.br/';
 const SOURCE = 'kabum';
 
-const createExecutor = () => new BrowserExecutor();
+const createExecutor = (executorOpts = {}) => new BrowserExecutor(executorOpts);
 
 // Compatibility hook: cleanup is delegated to the browser abstraction.
 const shutdown = async () => {
@@ -49,7 +49,8 @@ const detectPagination = async currentPage => {
 class KabumProvider extends ProductProvider {
   constructor(options = {}) {
     super();
-    this.executor = options.executor || createExecutor();
+    this.engine = options.engine || null;
+    this.executor = options.executor || createExecutor({ engine: this.engine });
   }
 
   async search(query, options = {}) {
@@ -57,7 +58,12 @@ class KabumProvider extends ProductProvider {
       throw new Error('query must be a non-empty string');
     }
 
-    return this.executor.execute(async (session) => {
+    const engine = options.engine || this.engine;
+    const executor = options.engine !== this.engine
+      ? new BrowserExecutor({ engine })
+      : this.executor;
+
+    return executor.execute(async (session) => {
       const currentPage = session.page;
 
       await currentPage.goto(HOME_URL, {waitUntil: 'domcontentloaded'});

@@ -13,8 +13,14 @@ const { FailureClassifier } = require('./FailureClassifier');
 class BrowserExecutor {
   /**
    * @param {Object} [options]
+   * @param {string} [options.engine] - Browser engine selector (e.g., 'playwright', 'camofox').
+   * @param {any} [options.factory]
+   * @param {any} [options.retryPolicy]
+   * @param {any} [options.classifier]
+   * @param {any} [options.retryOptions]
    */
   constructor(options = {}) {
+    this.engine = options.engine || null;
     this.factory = options.factory || BrowserFactory;
     this.retryPolicy = options.retryPolicy || new RetryPolicy(options.retryOptions);
     this.classifier = options.classifier || new FailureClassifier();
@@ -39,7 +45,7 @@ class BrowserExecutor {
           if (engine) {
             await this._safeClose(engine);
           }
-          engine = await this.factory.create();
+          engine = await this.factory.create({ engine: this.engine });
         }
 
         session = await engine.launch();
@@ -108,7 +114,7 @@ class BrowserExecutor {
     let session = null;
 
     try {
-      engine = await this.factory.create();
+      engine = await this.factory.create({ engine: this.engine });
       session = await engine.launch();
 
       const result = await operation(session);

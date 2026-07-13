@@ -1,143 +1,138 @@
 # Canonical Product Schema
 
-## Purpose
+## Overview
 
-The Canonical Product Schema defines a retailer-independent representation for products scraped from Brazilian online retailers (Pichau, KaBuM, Mercado Livre). It enables comparing equivalent products regardless of the source retailer.
+The Canonical Product Schema represents hardware products in a retailer-independent form that supports comparison across different data sources. It preserves raw retailer values while providing normalized fields for cross-retailer matching.
 
-## Schema Definition
+## Schema Fields
 
-```
-{
-  // --- Classification ---
-  "category":        string;    // Product category (e.g., "StorageDevice", "Processor", "GraphicsCard")
-  "brand":           string;    // Brand name (resolved to canonical via alias table)
-  "model":           string;    // Model number (e.g., "870", "A400", "MX500")
-  "family":          string | null; // Family/series (e.g., "EVO", "PRO", "NV3")
-  "manufacturerSku": string | null; // Original SKU (e.g., "SV300S37/480G")
+### Storage Device (primary category)
 
-  // --- Specifications ---
-  "capacity":        number | null; // Storage capacity in GB or TB
-  "interface":       string | null; // Connection type (e.g., "NVMe", "M.2", "SATA", "PCIe")
-  "protocol":        string | null; // Protocol (e.g., "NVMe", "SATA")
-  "pcieGeneration":  number | null; // PCIe generation (2, 3, 4, 5)
-  "formFactor":      string | null; // Physical form (e.g., "M.2", "2.5\"")
+| Field | Type | Description | Default |
+|-------|------|-------------|---------|
+| `category` | string | Product category identifier | `StorageDevice` |
+| `brand` | string \| null | Normalized brand name | `null` (unknown) |
+| `family` | string \| null | Product family/line | `null` (unknown) |
+| `model` | string \| null | Model identifier | `null` (unknown) |
+| `manufacturerSku` | string \| null | OEM SKU/MPN | `null` (unknown) |
+| `capacityGB` | number \| null | Capacity in gigabytes | `null` (unknown) |
+| `capacityTB` | number \| null | Capacity in terabytes | `null` (unknown) |
+| `canonicalCapacity` | string | Canonical capacity label (e.g., `"2000GB"`) | `null` |
+| `interface` | string \| null | Physical/logical interface | `null` (unknown) |
+| `protocol` | string \| null | Communication protocol | `null` (unknown) |
+| `pcieGeneration` | number \| null | PCIe generation number | `null` (unknown) |
+| `formFactor` | string \| null | Physical dimensions | `null` (unknown) |
+| `warranty` | number \| null | Warranty period in months | `null` (unknown) |
+| `availability` | string \| null | Availability status | `null` (unknown) |
+| `source` | string \| null | Source retailer | `null` |
 
-  // --- Pricing ---
-  "price":           number | null; // Price in original currency
-  "currency":        string;        // Currency code (e.g., "BRL")
+## Field Semantics
 
-  // --- Availability ---
-  "availability":    "in_stock" | "out_of_stock" | "unknown";
+### Brand
+- Normalized to canonical form (e.g., `WESTERN DIGITAL` -> `WD`)
+- Case-insensitive comparison
+- Known aliases: `WD` <-> `WESTERN DIGITAL` <-> `WD BLUE`
 
-  // --- Metadata ---
-  "confidence":      number;        // Overall confidence (0.0 - 1.0)
-  "source":          string;        // Source retailer (e.g., "Pichau", "Kabum")
-  "url":             string;        // Original product URL
-}
-```
+### Model
+- Numeric portions preserved and compared
+- Fuzzy matching: model with different trailing text can match if numeric portions align
+- Whitespace normalized to single space
 
-## Alias Tables
+### Family
+- Product family designator (e.g., `PRO`, `EVO`, `X`, `GT`)
+- Case-insensitive exact match
 
-### Brands
+### Capacity
+- `capacityGB`: Integer or float capacity in gigabytes
+- `capacityTB`: Alternative representation in terabytes
+- `canonicalCapacity`: Human-readable label derived from `capacityGB`
+- Tolerance: 5% difference counts as a match
 
-| Alias          | Canonical   |
-| -------------- | ----------- |
-| samsung        | SAMSUNG     |
-| Kingston       | KINGSTON    |
-| WD / Western Digital | WD   |
-| WD Black       | WD BLACK    |
-| WD Blue        | WD BLUE     |
-| Crucial        | CRUCIAL     |
-| Corsair        | CORSAIR     |
-| Lexar          | LEXAR       |
-| XPG            | XPG         |
+### Interface
+- Physical connector: `M.2`, `SATA`, `PCIe`, `SFF-8643`, etc.
+- Compatibility pairs: `M.2` <-> `PCIe`, `NVMe` <-> `PCIe`
 
-### Interfaces
+### Protocol
+- Data protocol: `NVMe`, `SATA`, `PCIe`, etc.
+- Exact match (case-insensitive)
 
-| Alias | Canonical |
-| ----- | --------- |
-| NVMe   | NVMe    |
-| NV | NVMe    |
-| M.2    | M.2     |
-| m2    | M.2     |
-| m-2    | M.2     |
-| SATA   | SATA    |
-| SATA III | SATA   |
-| PCIe   | PCIe    |
+### PCIe Generation
+- Integer: 3, 4, 5, etc.
+- Adjacent generations (diff <= 1) count as compatible
 
-### Form Factors
+### Form Factor
+- Physical dimensions: `M.2`, `2280`, `2.5"`, `3.5"`, `U.2`
+- Compatibility pairs: `M.2` <-> `2280`, `2.5"` <-> `SATA`
 
-| Alias | Canonical |
-| ----- | --------- |
-| M.2    | M.2    |
-| 2280   | M.2    |
-| 2.5"   | 2.5"   |
-| 2.5in  | 2.5"   |
+### Manufacturer SKU
+- OEM part number / MPN
+- Alphanumeric, case-insensitive
+- Non-alphanumeric characters normalized (ignored in comparison)
 
-## Confidence Scoring
+### Availability
+- Computed from retailer data
+- Examples: `in_stock`, `out_of_stock`, `preorder`, `discontinued`
 
-Confidence is computed per-field and aggregated:
+## Unknown Value Handling
 
-- **Brand**: 0.6 (none detected) to 0.95 (alias resolved)
-- **Model/Family**: 0.5 (null) to 0.85 (pattern match)
-- **Capacity**: 0.5 (none) to 0.95 (explicit unit)
-- **Interface**: 0.7 (detected) to 0.95 (alias resolved)
-- **PCIe Generation**: 0.7 (none) to 0.95 (pattern match)
-- **Form Factor**: 0.5 (none) to 0.9 (pattern match)
+Unknown values are represented as `null` (not empty string). A null field:
+- Does not cause a mismatch when compared to another null
+- Counts as partially matching when compared to a known value (penalizes confidence, not verdict)
+- Remains `null` in all canonical comparisons (never auto-assigned)
 
-Overall confidence = average of all non-null field confidences.
+## Canonical Capacity Labels
 
-## Examples
+| capacityGB | canonicalCapacity |
+|-----------|-------------------|
+| 120 | 120GB |
+| 128 | 128GB |
+| 240 | 240GB |
+| 256 | 256GB |
+| 480 | 480GB |
+| 500 | 500GB |
+| 512 | 512GB |
+| 960 | 960GB |
+| 1000 | 1000GB (1TB) |
+| 1024 | 1024GB (1TB) |
+| 2000 | 2000GB (2TB) |
+| 2048 | 2048GB (2TB) |
 
-### Samsung 870 EVO 500GB SATA (2.5")
+## Normalized Values Table
 
-```
-{
-  "category": "StorageDevice",
-  "brand": "SAMSUNG",
-  "model": "870",
-  "family": "EVO",
-  "manufacturerSku": "870 EVO",
-  "capacityGB": 500,
-  "interface": "SATA",
-  "protocol": "SATA",
-  "pcieGeneration": null,
-  "formFactor": "2.5\"",
-  "confidence": {
-    "brand": 0.9,
-    "model": 0.85,
-    "capacityGB": 0.95,
-    "interface": 0.95,
-    "pcieGeneration": 0.7,
-    "formFactor": 0.9,
-    "overall": 0.85
-  }
-}
-```
+### Interface Equivalence
 
-### Corsair MP600 1TB PCIe Gen4 NVMe (M.2)
+| Original Values | Canonical |
+|-----------------|-----------|
+| M.2, M.2 NVMe | M.2 |
+| PCIe, PCIE, PCIE M.2 | PCIe |
+| SATA, SATA 6Gb/s | SATA |
+| NVMe, NVME, NVMe M.2 | NVMe |
 
-```
-{
-  "category": "StorageDevice",
-  "brand": "CORSAIR",
-  "model": "MP600",
-  "family": "MP600",
-  "manufacturerSku": "MP600",
-  "capacityGB": 1000,
-  "capacityTB": 1,
-  "interface": "PCIe",
-  "protocol": "NVMe",
-  "pcieGeneration": 4,
-  "formFactor": "M.2",
-  "confidence": {
-    "brand": 0.9,
-    "model": 0.85,
-    "capacityGB": 0.95,
-    "interface": 0.85,
-    "pcieGeneration": 0.9,
-    "formFactor": 0.9,
-    "overall": 0.88
-  }
-}
-```
+### Brand Equivalence
+
+| Original | Canonical |
+|----------|-----------|
+| WD | WD |
+| WESTERN DIGITAL | WD |
+| WD BLUE | WD |
+| SAMSUNG, Samsung | SAMSUNG |
+| KINGSTON, Kingston | KINGSTON |
+| CORSAIR, Corsair | CORSAIR |
+| SK Hynix, SK hynix | SK_HYNIx |
+
+### Form Factor Equivalence
+
+| Original Values | Canonical |
+|-----------------|-----------|
+| 2280, M.2 2280 | 2280 |
+| 2.5", 2.5 inch | 2.5" |
+| U.2, SFF-8639 | U.2 |
+| HHHL | HHHL |
+
+## Extensibility
+
+Category-specific schemas extend the base model:
+
+- **CPU**: Add `socket`, `cores`, `clockSpeedGHz`
+- **GPU**: Add `gpuMemoryGB`, `clockSpeedMHz`, `outputInterfaces`
+- **MemoryModule**: Add `type` (DDR4/DDR5), `speedMHz`, `timing`

@@ -1,4 +1,4 @@
-const {PichauProvider} = require('./src/providers/pichau/PichauProvider');
+const {PichauProvider} = require('../src/providers/pichau/PichauProvider');
 
 (async () => {
   const provider = new PichauProvider();

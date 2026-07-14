@@ -112,6 +112,20 @@ src/
       exports: {KabumProvider, shutdown, KabumProviderError, ...}
     mercadolivre/
       MercadoLivreProvider.js # MercadoLivre implementation
+  browser/
+    BrowserEngine.js          # Abstract browser interface
+    PlaywrightEngine.js       # Playwright implementation
+    BrowserSession.js         # Browser state management
+    BrowserExecutor.js        # Orchestration (execute → retry → cleanup)
+    BrowserFactory.js         # Factory for browser instances
+    FailureClassifier.js      # Error classification
+    RetryPolicy.js            # Exponential backoff
+    index.js                  # Barrel exports
+  repository/
+    Repository.js             # Abstract repository interface
+    SQLiteRepository.js       # SQLite implementation (better-sqlite3)
+  services/
+    SearchService.js          # Search pipeline orchestrator
 ```
 
 ## Key Design Decisions
@@ -164,6 +178,54 @@ src/
 ## Technical Debt (Documented)
 
 See `docs/ROBUSTNESS.md` and `docs/TASK.md` for technical debt, limitations, and migration path.
+
+### 5. Browser Abstraction Layer
+
+*New in Milestone 4/5, bridging providers and search pipeline.*
+
+The browser abstraction layer decouples browser lifecycle from providers:
+
+```
+BrowserEngine (interface)
+   ├── PlaywrightEngine (concrete)
+   ├── BrowserSession (state)
+   ├── FailureClassifier (error classification)
+   ├── RetryPolicy (backoff logic)
+   ├── BrowserExecutor (orchestrator)
+   └── BrowserFactory (factory)
+```
+
+| Component          | Responsibility                                      |
+| ------------------ | --------------------------------------------------- |
+| `BrowserEngine`    | Abstract interface (`launch`, `getSession`, `close`) |
+| `PlaywrightEngine` | Playwright-specific implementation                  |
+| `BrowserSession`   | Browser state (page, context, cookies, URL)        |
+| `FailureClassifier`| Classifies errors: `retriable`, `transient`, `permanent`, `unknown` |
+| `RetryPolicy`      | Exponential backoff calculation, max retries        |
+| `BrowserExecutor`  | Orchestrates: `execute → classify → retry → cleanup` |
+| `BrowserFactory`   | Creates new instances (`create()`)                  |
+
+**Integration with SearchService:**
+
+```javascript
+const { SearchService } = require('./src/services/SearchService');
+const { BrowserExecutor } = require('./src/browser');
+
+const executor = new BrowserExecutor();
+const service = new SearchService({ browserExecutor: executor });
+const result = await service.search(PichauProvider.search, 'query', 'pichau');
+```
+
+**Browser Engine Info in Response:**
+
+```json
+{
+  "browserEngine": "playwright",
+  "executionTime": 4521,
+  "products": [...],
+  "normalizedProducts": [...]
+}
+
 
 ## Persistence Layer
 

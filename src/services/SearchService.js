@@ -4,11 +4,76 @@
  * It wraps an existing provider's search() call, stores the result
  * in the backing Repository, and enriches the response with
  * persistence metadata (searchId, persistedProductCount, etc.).
+ *
+ * The service optionally uses the BrowserExecutor from the browser
+ * abstraction layer to manage the browser lifecycle during provider
+ * calls.
  */
 
 const { randomUUID } = require('crypto');
 const { SQLiteRepository } = require('../repository/SQLiteRepository');
 const { normalizeProducts } = require('../providers/normalizer');
+const { StorageDeviceExtractor } = require('../StorageDeviceExtractor');
+const ComparisonEngine = require('../comparison/ComparisonEngine');
+const { BrowserExecutor } = require('../browser');
+
+
+function buildCanonicalProducts(normalizedProducts, providerName) {
+  return normalizedProducts.map((product) => {
+    const title = product.normalizedTitle || product.originalTitle;
+    const canonical = StorageDeviceExtractor.extract(title, {
+      source: product.provider || providerName,
+      url: product.url,
+    });
+
+    return {
+      ...canonical,
+      provenance: {
+        provider: product.provider || providerName,
+        originalTitle: product.originalTitle,
+        normalizedTitle: product.normalizedTitle,
+        url: product.url,
+      },
+    };
+  });
+}
+
+function canonicalFromComparisonProduct(product) {
+  if (product && product.category === 'StorageDevice') return product;
+
+  const title = product.normalizedTitle || product.originalTitle || product.title;
+  return {
+    ...StorageDeviceExtractor.extract(title, {
+      source: product.provider || product.source,
+      url: product.url,
+    }),
+    provenance: {
+      provider: product.provider || product.source,
+      originalTitle: product.originalTitle || product.title,
+      normalizedTitle: product.normalizedTitle,
+      url: product.url,
+    },
+  };
+}
+
+function buildComparisonResults(canonicalProducts, compareAgainst) {
+  if (!Array.isArray(compareAgainst) || compareAgainst.length === 0) return [];
+
+  const rightProducts = compareAgainst.map(canonicalFromComparisonProduct);
+  const results = [];
+  canonicalProducts.forEach((left, leftIndex) => {
+    rightProducts.forEach((right, rightIndex) => {
+      results.push({
+        leftIndex,
+        rightIndex,
+        left,
+        right,
+        comparison: ComparisonEngine.compare(left, right),
+      });
+    });
+  });
+  return results;
+}
 
 class SearchService {
   /**
@@ -16,11 +81,16 @@ class SearchService {
    * @param {string} [options.repositoryPath] - Path to the SQLite DB.
    * @param {boolean} [options.inMemory=false] - Use in-memory DB.
    * @param {string} [options.repository] - Which repository to use ('sqlite' | 'memory').
+   * @param {BrowserExecutor} [options.browserExecutor] - Optional BrowserExecutor.
    */
   constructor(options = {}) {
     this.options = { ...options };
     this.repository = null;
     this._resolved = false;
+    this.browserExecutor = options.browserExecutor || new BrowserExecutor({
+      maxRetries: 2,
+      baseDelayMs: 300,
+    });
   }
 
   static createSearchId() {
@@ -80,10 +150,14 @@ class SearchService {
     let result = null;
     let products = [];
     let searchPersisted = false;
+    let browserUsed = false;
 
     try {
-      // 1. Call the provider's search
-      result = await providerFn(query, options);
+      // 1. Call the provider's search (via BrowserExecutor if available)
+      const executeProviderFn = (page) => providerFn(query, options);
+      result = await this.browserExecutor.execute(executeProviderFn, `${providerName}.search`);
+      browserUsed = true;
+
       products = (result.products || []).slice().map((product) => ({
         ...product,
         provider: product.provider || product.source || providerName,
@@ -92,10 +166,14 @@ class SearchService {
       // 2. Normalize products using the dedicated normalizer
       const normalizedProducts = normalizeProducts(products, providerName);
 
+      // 3. Extract canonical storage-device facts after normalization.
+      const canonicalProducts = buildCanonicalProducts(normalizedProducts, providerName);
+      const comparisonResults = buildComparisonResults(canonicalProducts, options.compareAgainst || []);
+
       const statusText = products.length > 0 ? 'success' : 'partial';
       const executionTime = (result.executionTime || 0);
 
-      // 3. Persist via Repository (raw + normalized products)
+      // 4. Persist via Repository (raw + normalized products)
       await repo.createSearch({
         id: searchId,
         query,
@@ -106,15 +184,18 @@ class SearchService {
         executionTime,
         rawJSON: result.rawResponse ? JSON.stringify(result.rawResponse) : null,
         pagination: result.pagination ? JSON.stringify(result.pagination) : null,
+        browserEngine: browserUsed ? 'playwright' : null,
       });
       searchPersisted = true;
 
       await repo.persistRawProducts(searchId, products);
       await repo.persistNormalizedProducts(searchId, normalizedProducts);
 
-      // 4. Enrich the result with both raw and normalized data
+      // 5. Enrich the result with raw, normalized, canonical, and comparison data
       result.searchId = searchId;
       result.persisted = products.length;
+
+      const executionTimeEnd = Date.now() - startTime;
 
       return {
         ...result,
@@ -122,6 +203,7 @@ class SearchService {
         provider: providerName,
         query,
         url: result.url,
+        browserEngine: browserUsed ? 'playwright' : null,
         // Raw products (as returned by provider)
         products: products.map((p) => ({
           title: p.title,
@@ -147,8 +229,10 @@ class SearchService {
           url: np.url,
           provider: np.provider,
         })),
+        canonicalProducts,
+        comparisonResults,
         pagination: result.pagination,
-        executionTime,
+        executionTime: executionTimeEnd,
         productCount: products.length,
         persistence: { searchId, persistedProducts: products.length },
       };
@@ -166,6 +250,7 @@ class SearchService {
           executionTime,
           rawJSON: result?.rawResponse ? JSON.stringify(result.rawResponse) : null,
           pagination: result?.pagination ? JSON.stringify(result.pagination) : null,
+          browserEngine: browserUsed ? 'playwright' : null,
         });
         searchPersisted = true;
       }

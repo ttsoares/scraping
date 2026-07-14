@@ -16,7 +16,7 @@ const BRANDS = [
   'EVGA', 'Thermaltake', 'Be Quiet', 'Seasonic', 'FSP',
   'Super Flower', 'NZXT', 'Lian Li', 'Montech', 'SilverStone',
   'Transcend', 'Lexar', 'SanDisk', 'KingSpec',
-  'G-Skill', 'Pichau', 'Kabum',
+  'G-Skill', 'Pichau', 'Kabum', 'GeForce',
 ];
 
 /**
@@ -32,9 +32,9 @@ function normalizeTitle(title) {
     .replace(/Avalia\u00e7\u00e3o\s*[\d.,]+\s*de\s*[\d.,]*/gi, '')
     .replace(/^Selo:\s*\S+(?:\s+\S+)?\s*/i, '')
     .replace(/^Produto\s+Patrocinado\s*/i, '')
-    .replace(/Frete\s+gr[a\u00e1]tis\*?/gi, '')
+    .replace(/frete\s+gr[a\u00e1]tis\*/gi, 'frete grátis')
     .replace(/\s*\d+\s*[xXx\u00D7]\s*de\s*R\$\s*[\d.,]+\s*/gi, ' ')
-    .replace(/\s*\(\d+\w*\s*[Gg]era\u00e7\u00e3o\)/, '')
+    .replace(/\s*\(\d+[^)]*\s*[Gg]era\u00e7\u00e3o\)/, '')
     .trim();
   return n.replace(/\s+/g, ' ').trim();
 }
@@ -46,6 +46,7 @@ function normalizeTitle(title) {
  */
 function extractBrand(title) {
   if (!title) return null;
+  if (/\bNVIDIA\b/i.test(title)) return 'NVIDIA';
   const escaped = BRANDS.map(b => b.replace(/[.*+?${}()|[\]\\]/g, '\\$&'));
   const regex = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'i');
   const match = regex.exec(title);
@@ -159,33 +160,35 @@ function normalizeCurrency(priceText) {
  * @returns {{ currentPrice: number | null, originalPrice: number | null }}
  */
 function normalizePrice(price, priceText, currency) {
-  let currentPrice = price;
-  let originalPrice = null;
+  let currentPrice = Number.isFinite(price) ? price : null;
+  let originalPrice = currentPrice;
 
   if (currentPrice == null && priceText) {
     currentPrice = parsePrice(priceText, { currencyPrefix: currency === 'BRL' ? 'R$' : '$' });
     originalPrice = currentPrice;
-  } else if (currentPrice != null) {
-    originalPrice = currentPrice;
-    if (priceText) {
-      const dm = String(priceText).match(/(\d+(?:\.\d+)?,?\d+).*?(\d+(?:\.\d+)?,?\d+)/);
-      if (dm) {
-        const a = parseFloat(dm[1].replace(/\./g, '').replace(',', '.'));
-        const b = parseFloat(dm[2].replace(/\./g, '').replace(',', '.'));
-        if (Number.isFinite(a) && Number.isFinite(b)) {
-          currentPrice = a > 0 ? a : currentPrice;
-          originalPrice = b > currentPrice ? b : currentPrice;
-        }
-      }
+  }
+
+  if (currentPrice != null && priceText) {
+    const values = [];
+    const re = /R\$\s*([\d.]+,\d{2}|\d+(?:\.\d+)?)/gi;
+    let match;
+    while ((match = re.exec(String(priceText))) !== null) {
+      const value = parseFloat(match[1].replace(/\./g, '').replace(',', '.'));
+      if (Number.isFinite(value) && value > 0) values.push(value);
+    }
+    if (values.length > 1) {
+      originalPrice = Math.max(...values, currentPrice);
     }
   }
 
-  if (currentPrice == null) currentPrice = null;
-  if (originalPrice == null) originalPrice = currentPrice;
+  if (price != null && !Number.isFinite(price) && currentPrice == null) {
+    currentPrice = 0;
+    originalPrice = 0;
+  }
 
   return {
-    currentPrice: Number.isFinite(currentPrice) ? currentPrice : null,
-    originalPrice: Number.isFinite(originalPrice) ? originalPrice : null,
+    currentPrice,
+    originalPrice,
     currency: normalizeCurrency(priceText)
   };
 }

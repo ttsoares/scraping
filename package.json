@@ -11,7 +11,7 @@
     "dev:lan": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test tests/**/*.test.js tests/*.test.js"
   },
   "repository": {
     "type": "git",

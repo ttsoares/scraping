@@ -1,9 +1,6 @@
-const {chromium} = require('playwright-extra');
-const stealthPlugin = require('puppeteer-extra-plugin-stealth')();
 const {ProductProvider} = require('../ProductProvider');
-const {normalizeProducts, parsePrice} = require('../shared');
-
-chromium.use(stealthPlugin);
+const {normalizeProducts} = require('../shared');
+const {BrowserExecutor, BrowserFactory} = require('../../browser');
 
 const HOME_URL = 'https://www.pichau.com.br/';
 const SOURCE = 'pichau';
@@ -60,66 +57,11 @@ class DomChanged extends PichauProviderError {
   }
 }
 
-let browser = null;
-let context = null;
-let page = null;
+const createExecutor = (executorOpts = {}) => new BrowserExecutor(executorOpts);
 
-// --- Browser lifecycle ---
-
-const healthCheck = async () => {
-  if (!browser) return false;
-  if (!page || page.isClosed()) return false;
-
-  // Check page is navigated and responsive
-  const state = await page.evaluate(() => {
-    return {
-      title: document.title,
-      location: window.location.href,
-      hasBody: !!document.body
-    };
-  }).catch(() => ({title: '', location: '', hasBody: false}));
-
-  return state.hasBody && state.location.length > 0;
-};
-
-const ensurePage = async () => {
-  // Fast path: page exists and is valid
-  if (page && !page.isClosed()) {
-    const isValid = await healthCheck();
-    if (isValid) return page;
-  }
-
-  // Slow path: recreate page
-  if (!browser) {
-    browser = await chromium.launch({headless: true});
-  }
-
-  // Recreate context if it's defunct
-  if (!context) {
-    context = await browser.newContext();
-  }
-
-  page = await context.newPage();
-  return page;
-};
-
-// Explicit shutdown for resource cleanup
+// Compatibility hook: cleanup is delegated to the browser abstraction.
 const shutdown = async () => {
-  try {
-    if (page && !page.isClosed()) {
-      await page.close();
-    }
-    if (context) {
-      await context.close();
-    }
-    if (browser) {
-      await browser.close();
-    }
-  } finally {
-    page = null;
-    context = null;
-    browser = null;
-  }
+  await BrowserFactory.create().close();
 };
 
 // --- Error detection helpers ---
@@ -158,61 +100,58 @@ const detectPagination = async currentPage => {
 };
 
 class PichauProvider extends ProductProvider {
+  constructor(options = {}) {
+    super();
+    this.engine = options.engine || null;
+    this.executor = options.executor || createExecutor({ engine: this.engine });
+  }
+
   async search(query, options = {}) {
     if (!query || typeof query !== 'string') {
       throw new Error('query must be a non-empty string');
     }
 
-    const currentPage = await ensurePage();
+    const engine = options.engine || this.engine;
+    const executor = options.engine !== this.engine
+      ? new BrowserExecutor({ engine })
+      : this.executor;
 
-    await currentPage.goto(HOME_URL, {waitUntil: 'networkidle'});
+    return executor.execute(async (session) => {
+      const currentPage = session.page;
 
-    const searchInput = currentPage.locator(
-      'input[placeholder*="procurando"], input[aria-label="Buscar produtos"], input[role="searchbox"]'
-    );
+      await currentPage.goto(HOME_URL, {waitUntil: 'networkidle'});
 
-    await searchInput.first().waitFor({state: 'visible', timeout: 30000});
-    await searchInput.first().click();
-    await searchInput.first().fill(query);
-    await currentPage.keyboard.press('Enter');
+      const searchInput = currentPage.locator(
+        'input[placeholder*="procurando"], input[aria-label="Buscar produtos"], input[role="searchbox"]'
+      );
 
-    await currentPage.waitForSelector('a[data-cy="list-product"]', {timeout: 30000});
-    // Wait for product count to be >0 (not just selector existence, which can be
-    // fleeting during RSC navigation) and stable for 300ms.
-    await currentPage.waitForFunction(() => {
-      const cards = document.querySelectorAll('a[data-cy="list-product"]');
-      let count = 0;
-      for (let i = 0; i < cards.length; i++) {
-        if (cards[i].querySelector('h2')?.textContent?.trim()) count++;
+      await searchInput.first().waitFor({state: 'visible', timeout: 30000});
+      await searchInput.first().click();
+      await searchInput.first().fill(query);
+      await currentPage.keyboard.press('Enter');
+
+      await currentPage.waitForSelector('a[data-cy="list-product"]', {timeout: 30000});
+      // Wait for product count to be >0 (not just selector existence, which can be
+      // fleeting during RSC navigation) and stable for 300ms.
+      await currentPage.waitForFunction(() => {
+        const cards = document.querySelectorAll('a[data-cy="list-product"]');
+        let count = 0;
+        for (let i = 0; i < cards.length; i++) {
+          if (cards[i].querySelector('h2')?.textContent?.trim()) count++;
+        }
+        return count;
+      }, {timeout: 10000});
+
+      // Navigate to pagination if pageNum specified in options
+      if (options.pageNum && options.pageNum > 1) {
+        const currentUrl = new URL(currentPage.url());
+        currentUrl.searchParams.set('page', String(options.pageNum));
+        await currentPage.goto(currentUrl.toString(), {waitUntil: 'networkidle'});
+        await currentPage.waitForTimeout(3000);
       }
-      return count;
-    }, {timeout: 10000});
 
-    // Navigate to pagination if pageNum specified in options
-    if (options.pageNum && options.pageNum > 1) {
-      const currentUrl = new URL(currentPage.url());
-      currentUrl.searchParams.set('page', String(options.pageNum));
-      await currentPage.goto(currentUrl.toString(), {waitUntil: 'networkidle'});
-      await currentPage.waitForTimeout(3000);
-    }
-
-    // Extract products with a retry: if $$eval returns 0, try once more after 500ms.
-    let rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
-      cards.map(card => {
-        const title = card.querySelector('h2')?.textContent?.trim() || null;
-        const priceElement = card.querySelector('.price_vista, .price_total, [class*="price"]');
-        const priceText = priceElement?.textContent?.trim() || null;
-        return {
-          title,
-          priceText,
-          url: card.getAttribute('href')
-        };
-      })
-    );
-
-    if (rawProducts.length === 0) {
-      await currentPage.waitForTimeout(500);
-      rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
+      // Extract products with a retry: if $$eval returns 0, try once more after 500ms.
+      let rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
         cards.map(card => {
           const title = card.querySelector('h2')?.textContent?.trim() || null;
           const priceElement = card.querySelector('.price_vista, .price_total, [class*="price"]');
@@ -224,18 +163,34 @@ class PichauProvider extends ProductProvider {
           };
         })
       );
-    }
 
-    const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
-    const pagination = await detectPagination(currentPage);
+      if (rawProducts.length === 0) {
+        await currentPage.waitForTimeout(500);
+        rawProducts = await currentPage.$$eval('a[data-cy="list-product"]', cards =>
+          cards.map(card => {
+            const title = card.querySelector('h2')?.textContent?.trim() || null;
+            const priceElement = card.querySelector('.price_vista, .price_total, [class*="price"]');
+            const priceText = priceElement?.textContent?.trim() || null;
+            return {
+              title,
+              priceText,
+              url: card.getAttribute('href')
+            };
+          })
+        );
+      }
 
-    return {
-      query,
-      url: currentPage.url(),
-      products,
-      pagination,
-      source: SOURCE
-    };
+      const products = normalizeProducts(rawProducts, {HOME_URL, SOURCE});
+      const pagination = await detectPagination(currentPage);
+
+      return {
+        query,
+        url: currentPage.url(),
+        products,
+        pagination,
+        source: SOURCE
+      };
+    }, `${SOURCE}.search`);
   }
 }
 

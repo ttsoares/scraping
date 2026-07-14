@@ -6,6 +6,14 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 tags
+benchmark-providers-results.json
+
+# OpenWiki
+openwiki
+openwiki/*
+.github/workflows/openwiki-update.yml
+CLAUDE.md
+
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

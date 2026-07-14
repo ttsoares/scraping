@@ -26,6 +26,12 @@ export default function EngineeringVerification() {
       const data = await res.json();
       if (data.success) {
         setResult(data);
+        // The API responds 200/success even when the provider search itself
+        // failed (e.g. a persistence or browser error) - data.error carries
+        // that failure so it isn't silently swallowed behind "Recovery pending".
+        if (data.error) {
+          setError(data.error);
+        }
       } else {
         setError(data.error || { message: 'Search failed', code: 'UNKNOWN' });
       }

@@ -128,6 +128,7 @@ class SQLiteRepository extends Repository {
     this.db.exec(SCHEMA_SQL);
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('foreign_keys = ON');
+    this._migrateColumns();
 
     // Verify schema version
     const result = this.db
@@ -136,6 +137,64 @@ class SQLiteRepository extends Repository {
     if (result && result.schemaVersion !== SCHEMA_VERSION) {
       // future: run migrations
       console.warn(`[SQLiteRepository] Schema version mismatch: expected ${SCHEMA_VERSION}, got ${result.schemaVersion}`);
+    }
+  }
+
+  /**
+   * Heal tables created by an older SCHEMA_SQL revision.
+   *
+   * `CREATE TABLE IF NOT EXISTS` is a no-op on a table that already exists,
+   * so columns added to SCHEMA_SQL after a database file was first created
+   * (e.g. normalized_products.originalTitle/brand/model/...) silently never
+   * appear on disk, and every insert against them fails with
+   * "no such column" - not just a warning, a hard failure on every search.
+   * Add any missing columns in place instead of requiring manual DB surgery.
+   * @private
+   */
+  _migrateColumns() {
+    const expectedColumns = {
+      normalized_products: [
+        ['originalTitle', 'TEXT'],
+        ['normalizedTitle', 'TEXT'],
+        ['brand', 'TEXT'],
+        ['model', 'TEXT'],
+        ['storageCapacity', 'TEXT'],
+        ['memoryCapacity', 'TEXT'],
+        ['currency', "TEXT NOT NULL DEFAULT 'BRL'"],
+        ['currentPrice', 'REAL'],
+        ['originalPrice', 'REAL'],
+        ['originalPriceText', 'TEXT'],
+        ['availability', 'TEXT'],
+      ],
+    };
+
+    // Columns from a pre-normalization schema revision that no writer
+    // populates anymore. Left in place with their original NOT NULL
+    // constraint, they fail every insert; drop them instead.
+    const obsoleteColumns = {
+      normalized_products: ['title'],
+    };
+
+    for (const [table, columns] of Object.entries(expectedColumns)) {
+      const info = this.db.prepare(`PRAGMA table_info(${table})`).all();
+      const existing = new Set(info.map((c) => c.name));
+      for (const [name, type] of columns) {
+        if (!existing.has(name)) {
+          this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${type}`);
+          console.warn(`[SQLiteRepository] Migrated ${table}: added missing column ${name}`);
+        }
+      }
+    }
+
+    for (const [table, columns] of Object.entries(obsoleteColumns)) {
+      const info = this.db.prepare(`PRAGMA table_info(${table})`).all();
+      const existing = new Set(info.map((c) => c.name));
+      for (const name of columns) {
+        if (existing.has(name)) {
+          this.db.exec(`ALTER TABLE ${table} DROP COLUMN ${name}`);
+          console.warn(`[SQLiteRepository] Migrated ${table}: dropped obsolete column ${name}`);
+        }
+      }
     }
   }
 

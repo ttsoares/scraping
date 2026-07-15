@@ -1,0 +1,6 @@
+{
+  "title": "feat: unified multi-provider search with ComparisonEngine",
+  "body": "**Overview**\n\nThis PR introduces unified multi-provider search capabilities to the scraping project.\n\n**Key Features:**\n\n- **Parallel provider execution** in search.js with Promise.allSettled\n- **Multi-select checkbox UI** and provider column in index.js\n- **CSS styles** for provider checkboxes, badges, and indeterminate state\n- **ComparisonEngine.compareMany()** integration for canonical product grouping\n- **Backward-compatible** with single-provider queries\n- **Tests**: 20/21 passed\n\n**Changes:**\n- search.js: Added parallel execution with Promise.allSettled\n- index.js: Added multi-select checkboxes and provider column\n- CSS: Added styles for provider UI elements\n- ComparisonEngine: Integrated compareMany() for product grouping",
+  "head": "main",
+  "base": "main"
+}

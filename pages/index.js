@@ -7,6 +7,7 @@ const VIEW_MODES = ['raw', 'normalized', 'both'];
 export default function EngineeringVerification() {
   const [query, setQuery] = useState('ssd 1tb sata');
   const [provider, setProvider] = useState('pichau');
+  const [selectedProviders, setSelectedProviders] = useState(['pichau', 'kabum', 'mercadolivre']);
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -21,7 +22,7 @@ export default function EngineeringVerification() {
       const res = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, provider, pageNum }),
+        body: JSON.stringify({ query, provider, providers: selectedProviders, pageNum }),
       });
       const data = await res.json();
       if (data.success) {
@@ -77,6 +78,17 @@ export default function EngineeringVerification() {
     };
     const label = availability.replace('_', ' ').toUpperCase();
     return `<span class="${base} ${map[availability] || map.unknown}">${label}</span>`;
+  };
+
+  const toggleProvider = (p) => {
+    setSelectedProviders((prev) => {
+      if (prev.includes(p)) {
+        if (prev.length > 1) return prev.filter((x) => x !== p);
+      } else {
+        return [...prev, p];
+      }
+      return prev;
+    });
   };
 
   const getDisplayProducts = () => {
@@ -137,18 +149,28 @@ export default function EngineeringVerification() {
 
             {/* Provider Selector */}
             <div className={styles.inputGroup}>
-              <label htmlFor="provider" className={styles.inputLabel}>Provider</label>
-              <div className={styles.providerButtons}>
-                {PROVIDERS.map((p) => (
-                  <button
-                    key={p}
-                    type="button"
-                    className={`${styles.providerButton} ${provider === p ? styles.active : ''}`}
-                    onClick={() => setProvider(p)}
-                  >
-                    {p.charAt(0).toUpperCase() + p.slice(1)}
-                  </button>
-                ))}
+              <label htmlFor="provider" className={styles.inputLabel}>Providers</label>
+              <div className={styles.providerCheckboxes}>
+                {PROVIDERS.map((p) => {
+                  const isSelected = selectedProviders.includes(p);
+                  const isAllSelected = selectedProviders.length === PROVIDERS.length;
+                  const isIndeterminate = isSelected && !isAllSelected;
+                  return (
+                    <label
+                      key={p}
+                      className={`${styles.providerCheckbox} ${isSelected ? styles.checkboxActive : ''}`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleProvider(p)}
+                        readOnly
+                      />
+                      <span className={`${styles.checkboxBox} ${isIndeterminate ? styles.checkboxIndeterminate : ''}`}></span>
+                      <span className={styles.checkboxLabel}>{p.charAt(0).toUpperCase() + p.slice(1)}</span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
 
@@ -223,9 +245,15 @@ export default function EngineeringVerification() {
             <div className={styles.resultHeader}>
               <div className={styles.resultStats}>
                 <span className={styles.stat}>
-                  <span className={styles.statLabel}>Store:</span>{' '}
-                  <span className={styles.statValue}>{result.provider}</span>
+                  <span className={styles.statLabel}>Store(s):</span>{' '}
+                  <span className={styles.statValue}>{result.multiProvider ? 'Multi' : result.provider}</span>
                 </span>
+                {result.multiProvider && result.result && (
+                  <span className={styles.stat}>
+                    <span className={styles.statLabel}>Groups:</span>{' '}
+                    <span className={styles.statValue}>{result.result.groupCount}</span>
+                  </span>
+                )}
                 <span className={styles.stat}>
                   <span className={styles.statLabel}>Products:</span>{' '}
                   <span className={styles.statValue}>{result.result.productCount}</span>
@@ -289,6 +317,7 @@ export default function EngineeringVerification() {
                     {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Brand / Model</th>}
                     {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Storage / Memory</th>}
                     {viewMode !== 'raw' && <th className={styles.tableHeaderCell}>Availability</th>}
+                    {result.multiProvider && <th className={styles.tableHeaderCell}>Provider(s)</th>}
                     <th className={styles.tableHeaderCell}>URL</th>
                   </tr>
                 </thead>
@@ -351,6 +380,18 @@ export default function EngineeringVerification() {
                             ) : (
                               <span style={{color:'#64748b',fontSize:'0.8rem'}}>—</span>
                             )}
+                          </td>
+                        )}
+                        {result.multiProvider && result.result.canonicalGroups && (
+                          <td className={styles.tableCell}>
+                            <div style={{fontSize:'0.75rem'}}>
+                              {product.provider && <span className={styles.providerBadge}>{product.provider}</span>}
+                              {product.confidence != null && product.confidence > 0.6 && (
+                                <span style={{color: product.confidence >= 0.9 ? '#4ade80' : '#f59e0b', marginLeft: '4px'}}>
+                                  {(product.confidence * 100).toFixed(0)}%
+                                </span>
+                              )}
+                            </div>
                           </td>
                         )}
                         <td className={`${styles.tableCell} ${styles.urlCell}`}>

@@ -4,6 +4,8 @@ const StorageDeviceExtractor = require('./StorageDeviceExtractor');
 const ProductExtractor = require('./ProductExtractor');
 const ComparisonEngine = require('./comparison/ComparisonEngine');
 const ComparisonReason = require('./comparison/ComparisonReason');
+const { SearchService } = require('./services/SearchService');
+const { MultiProviderSearcher } = require('./services/MultiProviderSearcher');
 
 module.exports = {
   PichauProvider,
@@ -11,5 +13,7 @@ module.exports = {
   StorageDeviceExtractor,
   ProductExtractor,
   ComparisonEngine,
-  ComparisonReason
+  ComparisonReason,
+  SearchService,
+  MultiProviderSearcher,
 };

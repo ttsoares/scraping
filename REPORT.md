@@ -293,3 +293,72 @@ Live provider regression note: `tests/provider-regression.test.js` completed suc
 ## Recommended next loop
 
 Build a benchmark fixture generator that persists representative raw and normalized product records from real provider runs, then use those records as the canonical benchmark source for regression tests and metrics over time.
+
+---
+
+# Multi-Provider Backend Orchestration
+
+## Objective
+
+Establish a production-ready backend that can query multiple providers
+(Pichau, Kabum, MercadoLivre) and return one aggregated result set,
+without modifying the UI or the Product Intelligence algorithms.
+
+## Phase 1 - Inspect
+
+Existing services reviewed:
+
+- `src/services/SearchService.js` - single-provider search with retry,
+  persistence, and canonical product extraction.
+- `src/services/MultiProviderSearcher.js` - new orchestration layer.
+- `src/providers/normalizer.js` - single-product and batch normalization.
+- `src/StorageDeviceExtractor.js` - canonical product builder.
+- `src/comparison/ComparisonEngine.js` - comparison logic.
+- `src/index.js` - exports updated to include SearchService and
+  MultiProviderSearcher.
+
+## Phase 2 - Implementation
+
+### Changes
+
+1. `src/services/MultiProviderSearcher.js` (new) - orchestrates
+   parallel multi-provider search with deduplication.
+
+2. `src/index.js` (updated) - added SearchService and
+   MultiProviderSearcher exports.
+
+3. `tests/multi-provider-search.test.js` (new) - 59 assertions
+   across 8 test groups.
+
+No changes to: SearchService, normalizer, ComparisonEngine,
+StorageDeviceExtractor, browser/layer, repository/layer, pages/UI,
+ProductMatch, benchmark suite.
+
+## Phase 3 - Validation
+
+Test results:
+- Total: 59 tests
+- PASS: 59
+- FAIL: 0
+
+Verification:
+- `node tests/multi-provider-search.test.js` - 59 assertions passed
+- `node -c src/services/MultiProviderSearcher.js` - syntactically valid
+- `node -c src/index.js` - syntactically valid
+
+Success criteria:
+| Criterion | Result |
+|---|---|
+| Single search executes multiple providers | searchMany() passes query to all |
+| Results aggregated into one collection | products, normalizedProducts, canonicalProducts populated |
+| Single-provider unchanged | .search() delegates to SearchService |
+| Parallel execution | Promise.allSettled() |
+| Continues on provider failure | Partial failure test: successfulCount=2 when 1 of 3 fails |
+| Provider errors recorded | Error shape: provider, error.message, error.code, success |
+| Deduplicates across providers | URL-based primary + composite title/provider secondary |
+
+## Recommendations
+
+- MultiProviderSearcher can be wired into the UI in a future loop.
+- Consider pagination support for multi-page providers.
+- BrowserDoubleLaunch issue is independent of multi-provider.

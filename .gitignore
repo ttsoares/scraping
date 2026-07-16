@@ -14,6 +14,10 @@ openwiki/*
 .github/workflows/openwiki-update.yml
 CLAUDE.md
 .claude
+.agents/
+.codex/
+openuser.config.json
+
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

@@ -271,6 +271,14 @@ async function handler(req, res) {
         groupCount: mpsResult.result?.groupCount || mpsResult.groupCount || 0,
         persisted: mpsResult.result?.persisted || mpsResult.result?.productCount || mpsResult.productCount || 0,
         persistence: mpsResult.result?.persistence || { allProviders: mpsResult.providerStatuses || {} },
+        filteredCount: mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0,
+        totalProducts: (mpsResult.result?.productCount ?? mpsResult.productCount ?? 0) + (mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0),
+        queryFilter: mpsResult.queryFilter || {
+          enabled: true,
+          applied: (mpsResult.filteredCount ?? mpsResult.result?.productCount ?? mpsResult.productCount ?? 0) > 0,
+          filteredCount: mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0,
+          threshold: options?.queryThreshold || 0.3,
+        },
       },
       error: mpsResult.error || null,
     });
@@ -291,6 +299,14 @@ async function handler(req, res) {
       productCount: mpsResult.result?.productCount || mpsResult.productCount || 0,
       persisted: mpsResult.result?.persisted || mpsResult.result?.productCount || mpsResult.productCount || 0,
       persistence: mpsResult.result?.persistence || (mpsResult.persisted ? { allProviders: {} } : {}),
+      filteredCount: mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0,
+      totalProducts: (mpsResult.result?.productCount ?? mpsResult.productCount ?? 0) + (mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0),
+      queryFilter: mpsResult.queryFilter || {
+        enabled: true,
+        applied: (mpsResult.filteredCount ?? mpsResult.result?.productCount ?? mpsResult.productCount ?? 0) > 0,
+        filteredCount: mpsResult.filteredCount ?? mpsResult.result?.queryFilter?.filteredCount ?? 0,
+        threshold: options?.queryThreshold ?? 0.3,
+      },
     },
     error: mpsResult.error || null,
   });

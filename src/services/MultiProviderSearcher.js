@@ -18,6 +18,7 @@ const { SearchService } = require('./SearchService');
 const { StorageDeviceExtractor } = require('../StorageDeviceExtractor');
 const ComparisonEngine = require('../comparison/ComparisonEngine');
 const { normalizeProduct: _normalizeProduct } = require('../providers/normalizer');
+const { filterByQuery } = require('./SearchQueryMatcher');
 
 // ---------------------------------------------------------------------------
 // Deduplication
@@ -259,7 +260,18 @@ class MultiProviderSearcher {
       .map((s) => s.result.products)
       .flat();
 
-    const deduplicatedProducts = deduplicateProducts(allProducts);
+    // --- Post-retrieval query relevance filter (provider-agnostic) ---
+    const queryFilter = query ? options.queryFilter : true;
+    let filteredProducts = allProducts;
+    let filteredCount = 0;
+
+    if (queryFilter && query && allProducts.length > 0) {
+      const filtered = filterByQuery(allProducts, query, options.queryThreshold || 0.3);
+      filteredProducts = filtered.results;
+      filteredCount = filtered.filteredCount;
+    }
+
+    const deduplicatedProducts = deduplicateProducts(filteredProducts);
 
     // Compute total execution time
     const executionTime = Date.now() - startTime;
@@ -279,6 +291,7 @@ class MultiProviderSearcher {
       successfulCount: successful.length,
       failedCount: errors.length,
       productCount: deduplicatedProducts.length,
+      filteredCount,
 
       // Aggregated products with source info
       products: deduplicatedProducts,
@@ -303,6 +316,13 @@ class MultiProviderSearcher {
       persistence: {
         searchId,
         persistedProducts: deduplicatedProducts.length,
+      },
+      queryFilter: {
+        enabled: !!queryFilter,
+        applied: filteredCount > 0,
+        filteredCount,
+        totalProducts: allProducts.length,
+        threshold: options.queryThreshold || 0.3,
       },
     };
   }
@@ -340,7 +360,30 @@ class MultiProviderSearcher {
    * @returns {Promise<Object>}
    */
   async search(providerFn, query, providerName, options) {
-    return this._searchService.search(providerFn, query, providerName, options);
+    const result = await this._searchService.search(providerFn, query, providerName, options);
+
+    // Apply query relevance filter to single-provider results
+    if (query && options && options.queryFilter !== false && result && result.products) {
+      const filtered = filterByQuery(result.products, query, options.queryThreshold || 0.3);
+      result.products = filtered.results;
+      result.filteredCount = filtered.filteredCount;
+      result.queryFilter = {
+        enabled: true,
+        applied: filtered.filteredCount > 0,
+        filteredCount: filtered.filteredCount,
+        totalProducts: filtered.totalBefore,
+        threshold: options.queryThreshold || 0.3,
+      };
+    } else if (result) {
+      result.queryFilter = {
+        enabled: false,
+        applied: false,
+        filteredCount: 0,
+        totalProducts: result.products?.length || 0,
+      };
+    }
+
+    return result;
   }
 
   /**
